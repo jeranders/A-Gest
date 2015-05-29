@@ -27,7 +27,7 @@ if (isset($_POST['send'])) {
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>AdminLTE 2 | Log in</title>
+    <title>Log inEasy | Gestion </title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -51,7 +51,7 @@ if (isset($_POST['send'])) {
         <a href="index.php">Easy Gestion</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Connectez-vous pour commencer votre session</p>
         <form action="#" method="post">
           <div class="form-group has-feedback">
             <input type="text" class="form-control" placeholder="Pseudo" name="pseudo"/>
@@ -65,24 +65,24 @@ if (isset($_POST['send'])) {
             <div class="col-xs-8">    
               <div class="checkbox icheck">
                 <label>
-                  <input type="checkbox"> Remember Me
+                  <input type="checkbox"> Se souvenir de moi
                 </label>
               </div>                        
             </div><!-- /.col -->
             <div class="col-xs-4">
-              <button type="submit" name="send" class="btn btn-primary btn-block btn-flat">Sign In</button>
+              <button type="submit" name="send" class="btn btn-primary btn-block btn-flat">Connexion</button>
             </div><!-- /.col -->
           </div>
         </form>
 
         <div class="social-auth-links text-center">
-          <p>- OR -</p>
-          <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
-          <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
+          <p>Ou</p>
+          <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Connectez vous avec Facebook</a>
+          <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Connectez vous avec Google+</a>
         </div><!-- /.social-auth-links -->
 
-        <a href="#">I forgot my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="#">J'ai oublié mon mot de passe</a><br>
+        <a href="register.html" class="text-center">S'inscrire</a>
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->

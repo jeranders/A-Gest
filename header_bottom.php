@@ -32,7 +32,7 @@
       <body class="skin-black sidebar-mini">
         <?php
         $id_membre = $_SESSION['id_membre'];
-        $info = $bdd->prepare('SELECT * FROM membres WHERE id_membre = :id_membre');
+        $info = $bdd->prepare('SELECT * FROM membres, config_gen WHERE config_gen.id_membre = membres.id_membre AND membres.id_membre = :id_membre');
         $info->execute(array('id_membre' => $id_membre));
         $informations = $info->fetch();
          ?>
@@ -169,14 +169,14 @@
                           <a href="#" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="logout.php" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="logout.php" class="btn btn-default btn-flat">Déconnexion</a>
                         </div>
                       </li>
                     </ul>
                   </li>
                   <!-- Control Sidebar Toggle Button -->
                   <li>
-                    <a href="#">Compte : 158 &euro;</a>
+                    <a href="#">Compte : <?php echo $informations['cg_compte']; ?> &euro;  </a>
                   </li>
                 </ul>
               </div>
