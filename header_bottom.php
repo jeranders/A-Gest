@@ -35,7 +35,7 @@
         $info = $bdd->prepare('SELECT * FROM membres, config_gen WHERE config_gen.id_membre = membres.id_membre AND membres.id_membre = :id_membre');
         $info->execute(array('id_membre' => $id_membre));
         $informations = $info->fetch();
-         ?>
+        ?>
         <div class="wrapper">
 
           <header class="main-header">
@@ -139,13 +139,13 @@
                   <!-- User Account: style can be found in dropdown.less -->
                   <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                      <img src="dist/img/Gollum.jpg" class="user-image" alt="User Image"/>
                       <span class="hidden-xs"><?php echo $informations['m_nom'] . ' ' . $informations['m_prenom']; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                        <img src="dist/img/Gollum.jpg" class="img-circle" alt="User Image" />
                         <p>
                           Brechoire Jérôme - Web Developer
                           <small>Member since Nov. 2012</small>
@@ -185,17 +185,7 @@
           <!-- Left side column. contains the logo and sidebar -->
           <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
-              <!-- Sidebar user panel -->
-              <div class="user-panel">
-                <div class="pull-left image">
-                  <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
-                </div>
-                <div class="pull-left info">
-                  <p>Brechoire Jérôme</p>
-
-                </div>
-              </div>
+            <section class="sidebar">             
               <!-- search form -->
               <form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
@@ -215,20 +205,8 @@
                     <i class="fa fa-dashboard"></i> <span>Panneaux de contrôle</span> <i class="fa fa-angle-left pull-right"></i>
                   </a>
                   <ul class="treeview-menu">
-                    <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                  </ul>
-                </li>
-                <li class="treeview">
-                  <a href="#">
-                    <i class="fa fa-files-o"></i>
-                    <span>Layout Options</span>                
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                    <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                    <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                    <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                    <li class="active"><a href="index.php"><i class="fa fa-circle-o"></i> Accueil</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> A propos</a></li>
                   </ul>
                 </li>                      
               </ul>
