@@ -1,6 +1,6 @@
 <?php include 'header_top.php'; ?>
 <title>Accueil | Easy Gestion</title>
-<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+<meta content='' name='viewport'>
 <?php include 'header_bottom.php'; ?>
 
 
