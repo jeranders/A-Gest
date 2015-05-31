@@ -31,7 +31,7 @@
       </head>
       <body class="skin-black sidebar-mini">
         <?php
-        $id_membre = $_SESSION['id_membre'];
+        $id_membre = (int)$_SESSION['id_membre'];
         $info = $bdd->prepare('SELECT * FROM membres, config_gen WHERE config_gen.id_membre = membres.id_membre AND membres.id_membre = :id_membre');
         $info->execute(array('id_membre' => $id_membre));
         $informations = $info->fetch();
@@ -54,6 +54,20 @@
               </a>
               <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+
+                  <!-- Divers infos -->
+                  <li>
+                    <a href="#">Compte : <?php echo htmlentities($informations['cg_compte']); ?> &euro;  </a>
+                  </li>
+
+                  <!-- Chiffre d'affaire -->
+                  <li>
+                    <a href="#">CA : 458 &euro;  </a>
+                  </li>
+                  <!-- Cotisations -->
+                  <li>
+                    <a href="#">Cotisations : 24 &euro;</a>
+                  </li>
                   <!-- Messages: style can be found in dropdown.less-->
                   <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -140,14 +154,14 @@
                   <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <img src="dist/img/Gollum.jpg" class="user-image" alt="User Image"/>
-                      <span class="hidden-xs"><?php echo $informations['m_nom'] . ' ' . $informations['m_prenom']; ?></span>
+                      <span class="hidden-xs"><?php echo htmlentities($informations['m_nom']) . ' ' . htmlentities($informations['m_prenom']); ?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
                         <img src="dist/img/Gollum.jpg" class="img-circle" alt="User Image" />
                         <p>
-                          Brechoire Jérôme - Web Developer
+                          Brechoire Jérôme - Easy Gestion
                           <small>Member since Nov. 2012</small>
                         </p>
                       </li>
@@ -173,10 +187,6 @@
                         </div>
                       </li>
                     </ul>
-                  </li>
-                  <!-- Control Sidebar Toggle Button -->
-                  <li>
-                    <a href="#">Compte : <?php echo $informations['cg_compte']; ?> &euro;  </a>
                   </li>
                 </ul>
               </div>
@@ -208,7 +218,8 @@
                     <li class="active"><a href="index.php"><i class="fa fa-circle-o"></i> Accueil</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i> A propos</a></li>
                   </ul>
-                </li>                      
+                </li> 
+                <li><a href="ajout_fournisseur.php">Ajout d'un fournisseur</a></li>                     
               </ul>
             </section>
             <!-- /.sidebar -->

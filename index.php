@@ -80,9 +80,9 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="box">
+        <div class="box box-warning box-solid">
           <div class="box-header">
-            <h3 class="box-title">Commande en cours</h3>
+            <h3 class="box-title">Commandes en cours</h3>
 
           </div><!-- /.box-header -->
           <div class="box-body no-padding">
@@ -121,7 +121,7 @@
       </div><!-- /.col -->
 
       <div class="col-md-6">
-        <div class="box">
+        <div class="box box-danger box-solid">
           <div class="box-header">
             <h3 class="box-title">5 derniers produit enregistré</h3>
           </div><!-- /.box-header -->
@@ -147,9 +147,9 @@
 
    <div class="row">
     <div class="col-md-6">
-      <div class="box">
+      <div class="box box-success box-solid">
         <div class="box-header">
-          <h3 class="box-title">Commande à payer</h3>
+          <h3 class="box-title">Commandes à payer</h3>
 
         </div><!-- /.box-header -->
         <div class="box-body no-padding">
