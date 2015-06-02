@@ -22,6 +22,8 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 
+    <link href="plugins/jeranders.css" rel="stylesheet" type="text/css" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -57,7 +59,7 @@
 
                   <!-- Divers infos -->
                   <li>
-                    <a href="#">Compte : <?php echo htmlentities($informations['cg_compte']); ?> &euro;  </a>
+                    <a href="#">Capital : <?php echo htmlentities($informations['cg_compte']); ?> &euro;  </a>
                   </li>
 
                   <!-- Chiffre d'affaire -->
