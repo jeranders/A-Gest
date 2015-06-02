@@ -3,7 +3,51 @@
 <?php 
 
 if (isset($_POST['send'])) {
-  # code...
+
+  /* VARIABLE AJOUT FOURNISSEUR DEBUT ******************************/
+  $nom_fournisseur= htmlentities($_POST['nom_fournisseur']); 
+  $rue= htmlentities($_POST['rue']); 
+  $code_postal= (int)$_POST['code_postal']; 
+  $ville= htmlentities($_POST['ville']); 
+  $telephone= htmlentities($_POST['telephone']); 
+  $fax= htmlentities($_POST['fax']); 
+  $email= htmlentities($_POST['email']); 
+  $site= htmlentities($_POST['site']);
+  $commentaire= htmlentities($_POST['commentaire']);
+  $id_membre = (int)$_SESSION['id_membre'];
+  /* VARIABLE AJOUT FOURNISSEUR FIN ********************************/
+
+  $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre');
+  $count->bindValue('nom_fournisseur', $nom_fournisseur, PDO::PARAM_STR);
+  $count->execute();
+
+  if ($count->fetchColumn()) {
+    setFlash('Attention le nom du fournisseur est déjà utilisé. Si vous avez plusieurs fournisseurs avec le même nom, ajouter un numéro par exemple.', 'danger');
+    $erreur_nom_fournisseur = '<p class="text-red"><i class="fa fa-fw fa-warning"></i> Erreur, le nom du fournisseur est déjà utilisé.</p>';
+  } else {
+
+    $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_rue, f_code_postal, f_ville, f_tel , f_fax, f_email, f_site, f_commentaire, id_membre) 
+      VALUES(:nom_fournisseur, :rue, :code_postal, :ville, :telephone, :fax, :email, :site, :commentaire, :id_membre)');
+    $req->execute(array(
+      'nom_fournisseur' => $nom_fournisseur,
+      'rue'             => $rue,
+      'code_postal'     => $code_postal,
+      'ville'           => $ville,
+      'telephone'       => $telephone,
+      'fax'             => $fax,
+      'email'           => $email,
+      'site'            => $site,
+      'commentaire'     => $commentaire,
+      'id_membre'       => $id_membre
+      ));
+
+    setFlash('Le fournisseur a bien été enregistré', 'success');
+    header('Location:ajout_fournisseur.php');
+    die();
+
+  }
+
+
 }
 ?>
 
@@ -30,14 +74,15 @@ if (isset($_POST['send'])) {
 <section class="content">
 
 
-  <?php include 'debug.php'; ?>
+  <?php //include 'debug.php'; ?>
+  <?php echo flash(); ?>
 
   <!-- Small boxes (Stat box) -->
   <div class="row">
     <!-- left column -->
     <div class="col-md-6 col-md-offset-3">
       <!-- general form elements -->
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Informations du fournisseur</h3>
         </div><!-- /.box-header -->
@@ -47,21 +92,21 @@ if (isset($_POST['send'])) {
           <div class="box-body">
             <div class="form-group">
               <label for="nom_fournisseur">Nom du fournisseur</label>
-              <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur">
-            </div>
+              <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>"> <?php if (isset($erreur_nom_fournisseur)) { echo $erreur_nom_fournisseur; } ?>
+            </div>            
 
             <div class="form-group">
               <label for="adresse_fournisseur">Adresse</label>
               <div class="box-body">
                 <div class="row">
                   <div class="col-xs-5">
-                    <input type="text" class="form-control" name="rue" placeholder="Rue">
+                    <input type="text" class="form-control" name="rue" placeholder="Rue" value="<?php if (isset($_POST['rue'])) { echo $_POST['rue']; } ?>">
                   </div>
                   <div class="col-xs-3">
-                    <input type="text" class="form-control" name="code_postal" placeholder="Code Postal">
+                    <input type="text" class="form-control" name="code_postal" placeholder="Code Postal" value="<?php if (isset($_POST['code_postal'])) { echo $_POST['code_postal']; } ?>">
                   </div>
                   <div class="col-xs-4">
-                    <input type="text" class="form-control" name="ville" placeholder="Ville">
+                    <input type="text" class="form-control" name="ville" placeholder="Ville" value="<?php if (isset($_POST['ville'])) { echo $_POST['ville']; } ?>">
                   </div>
                 </div>
               </div><!-- /.box-body -->
@@ -74,7 +119,7 @@ if (isset($_POST['send'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-phone"></i>
                 </div>
-                <input type="text" class="form-control" name="telephone"/>
+                <input type="text" class="form-control" name="telephone" placeholder="0102030405" value="<?php if (isset($_POST['telephone'])) { echo $_POST['telephone']; } ?>"/>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
 
@@ -84,7 +129,7 @@ if (isset($_POST['send'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-phone"></i>
                 </div>
-                <input type="text" class="form-control" name="fax"/>
+                <input type="text" class="form-control" name="fax" placeholder="0102030406" value="<?php if (isset($_POST['fax'])) { echo $_POST['fax']; } ?>"/>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
 
@@ -94,7 +139,7 @@ if (isset($_POST['send'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-envelope"></i>
                 </div>
-                <input type="text" class="form-control" name="email"/>
+                <input type="email" class="form-control" name="email" placeholder="email@email.com" value="<?php if (isset($_POST['email'])) { echo $_POST['email']; } ?>"/>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
 
@@ -104,7 +149,7 @@ if (isset($_POST['send'])) {
                 <div class="input-group-addon">
                   <i class="fa fa-wifi"></i>
                 </div>
-                <input type="text" class="form-control" name="site"/>
+                <input type="text" class="form-control" name="site" placeholder="http://site.com" value="<?php if (isset($_POST['site'])) { echo $_POST['site']; } ?>"/>
               </div><!-- /.input group -->
             </div><!-- /.form group -->
 
@@ -137,6 +182,5 @@ if (isset($_POST['send'])) {
 
 </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
-
 
 <?php echo include 'footer.php'; ?>

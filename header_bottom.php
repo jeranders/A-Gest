@@ -219,7 +219,7 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i> A propos</a></li>
                   </ul>
                 </li> 
-                <li><a href="ajout_fournisseur.php">Ajout d'un fournisseur</a></li>                     
+                <li><a href="ajout_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Ajout d'un fournisseur</span></a></li>
               </ul>
             </section>
             <!-- /.sidebar -->
