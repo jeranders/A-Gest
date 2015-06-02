@@ -17,15 +17,19 @@ if (isset($_POST['send'])) {
   $id_membre = (int)$_SESSION['id_membre'];
   /* VARIABLE AJOUT FOURNISSEUR FIN ********************************/
 
-  $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre');
+  /*Requete qui recherche dans la BDD si un fournisseur est déjà utilisé*/
+
+  $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre AND fournisseurs.id_membre = :id_membre');
   $count->bindValue('nom_fournisseur', $nom_fournisseur, PDO::PARAM_STR);
+  $count->bindValue('id_membre', $id_membre, PDO::PARAM_INT);
   $count->execute();
 
   if ($count->fetchColumn()) {
+    /*Si le nom du fournisseur entré est déjà utilisé*/
     setFlash('Attention le nom du fournisseur est déjà utilisé. Si vous avez plusieurs fournisseurs avec le même nom, ajouter un numéro par exemple.', 'danger');
     $erreur_nom_fournisseur = '<p class="text-red"><i class="fa fa-fw fa-warning"></i> Erreur, le nom du fournisseur est déjà utilisé.</p>';
   } else {
-
+    /*Si tout est bon, insertion du fournisseur*/
     $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_rue, f_code_postal, f_ville, f_tel , f_fax, f_email, f_site, f_commentaire, id_membre) 
       VALUES(:nom_fournisseur, :rue, :code_postal, :ville, :telephone, :fax, :email, :site, :commentaire, :id_membre)');
     $req->execute(array(
@@ -41,21 +45,17 @@ if (isset($_POST['send'])) {
       'id_membre'       => $id_membre
       ));
 
-    setFlash('Le fournisseur a bien été enregistré', 'success');
+    setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été enregistré', 'success');
     header('Location:ajout_fournisseur.php');
     die();
-
   }
-
-
 }
 ?>
 
-
 <title>Ajout d'un fournisseur | Easy Gestion</title>
 <meta content='' name='viewport'>
+<?php $page = 'Ajout d\'un fournisseur'; ?>
 <?php include 'header_bottom.php'; ?>
-
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -72,7 +72,6 @@ if (isset($_POST['send'])) {
 
 <!-- Main content -->
 <section class="content">
-
 
   <?php //include 'debug.php'; ?>
   <?php echo flash(); ?>
@@ -92,7 +91,16 @@ if (isset($_POST['send'])) {
           <div class="box-body">
             <div class="form-group">
               <label for="nom_fournisseur">Nom du fournisseur</label>
-              <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>"> <?php if (isset($erreur_nom_fournisseur)) { echo $erreur_nom_fournisseur; } ?>
+
+              <?php if (isset($_POST['nom_fournisseur'])) {
+                ?>
+                <input type="text" class="form-control errorInput" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>"> <?php if (isset($erreur_nom_fournisseur)) { echo $erreur_nom_fournisseur; } ?>
+                <?php
+              }else {
+                ?>
+                <input type="text" class="form-control" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>">
+                <?php
+              } ?>
             </div>            
 
             <div class="form-group">
@@ -127,7 +135,7 @@ if (isset($_POST['send'])) {
               <label>Fax</label>
               <div class="input-group">
                 <div class="input-group-addon">
-                  <i class="fa fa-phone"></i>
+                  <i class="fa fa-fax"></i>
                 </div>
                 <input type="text" class="form-control" name="fax" placeholder="0102030406" value="<?php if (isset($_POST['fax'])) { echo $_POST['fax']; } ?>"/>
               </div><!-- /.input group -->
