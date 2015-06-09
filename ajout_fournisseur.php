@@ -5,15 +5,17 @@
 if (isset($_POST['send'])) {
 
   /* VARIABLE AJOUT FOURNISSEUR DEBUT ******************************/
-  $nom_fournisseur= htmlentities($_POST['nom_fournisseur']); 
-  $rue= htmlentities($_POST['rue']); 
-  $code_postal= (int)$_POST['code_postal']; 
-  $ville= htmlentities($_POST['ville']); 
-  $telephone= htmlentities($_POST['telephone']); 
-  $fax= htmlentities($_POST['fax']); 
-  $email= htmlentities($_POST['email']); 
-  $site= htmlentities($_POST['site']);
-  $commentaire= htmlentities($_POST['commentaire']);
+  $nom_fournisseur = htmlentities($_POST['nom_fournisseur']); 
+  $rue = htmlentities($_POST['rue']); 
+  $code_postal = (int)$_POST['code_postal']; 
+  $ville = htmlentities($_POST['ville']); 
+  $pays = (int)$_POST['pays']; 
+  $telephone = htmlentities($_POST['telephone']); 
+  $fax = htmlentities($_POST['fax']); 
+  $email = htmlentities($_POST['email']); 
+  $site = htmlentities($_POST['site']);
+  $commentaire = htmlentities($_POST['commentaire']);
+  $livraison = (int)$_POST['livraison'];
   $id_membre = (int)$_SESSION['id_membre'];
   /* VARIABLE AJOUT FOURNISSEUR FIN ********************************/
 
@@ -30,24 +32,31 @@ if (isset($_POST['send'])) {
     $erreur_nom_fournisseur = '<p class="text-red"><i class="fa fa-fw fa-warning"></i> Erreur, le nom du fournisseur est déjà utilisé.</p>';
   } else {
     /*Si tout est bon, insertion du fournisseur*/
-    $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_rue, f_code_postal, f_ville, f_tel , f_fax, f_email, f_site, f_commentaire, id_membre) 
-      VALUES(:nom_fournisseur, :rue, :code_postal, :ville, :telephone, :fax, :email, :site, :commentaire, :id_membre)');
-    $req->execute(array(
-      'nom_fournisseur' => $nom_fournisseur,
-      'rue'             => $rue,
-      'code_postal'     => $code_postal,
-      'ville'           => $ville,
-      'telephone'       => $telephone,
-      'fax'             => $fax,
-      'email'           => $email,
-      'site'            => $site,
-      'commentaire'     => $commentaire,
-      'id_membre'       => $id_membre
-      ));
 
-    setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été enregistré', 'success');
-    header('Location:ajout_fournisseur.php');
-    die();
+    if (isset($nom_fournisseur) AND strlen($nom_fournisseur) == 0 ) {
+      setFlash('Attention le nom du fournisseur est vide.', 'danger');
+    }else{
+      $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_rue, f_code_postal, f_ville, f_pays, f_tel , f_fax, f_email, f_site, f_commentaire, id_membre, f_date_ajout, f_livraison) 
+        VALUES(:nom_fournisseur, :rue, :code_postal, :ville, :pays, :telephone, :fax, :email, :site, :commentaire, :id_membre,NOW(), :livraison)');
+      $req->execute(array(
+        'nom_fournisseur' => $nom_fournisseur,
+        'rue'             => $rue,
+        'code_postal'     => $code_postal,
+        'ville'           => $ville,
+        'pays'            => $pays,
+        'telephone'       => $telephone,
+        'fax'             => $fax,
+        'email'           => $email,
+        'site'            => $site,
+        'commentaire'     => $commentaire,
+        'livraison'       => $livraison,
+        'id_membre'       => $id_membre
+        ));
+
+      setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été enregistré', 'success');
+      header('Location:ajout_fournisseur.php');
+      die();
+    }
   }
 }
 ?>
@@ -73,8 +82,52 @@ if (isset($_POST['send'])) {
 <!-- Main content -->
 <section class="content">
 
-  <?php //include 'debug.php'; ?>
+  <?php include 'debug.php'; ?>
   <?php echo flash(); ?>
+
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-3">
+      <div class="info-box">
+        <span class="info-box-icon bg-aqua"><i class="fa fa-toggle-up"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Nombre(s) de fournisseurs</span>
+          <span class="info-box-number">
+            <?php 
+            $id_membre = (int)$_SESSION['id_membre'];
+            $nb = $bdd->prepare('SELECT COUNT(*) AS nb_f FROM fournisseurs WHERE id_membre = :id_membre');
+            $nb->execute(array('id_membre' => $id_membre));
+            $nb_f = $nb->fetch();
+            echo $nb_f['nb_f'];
+            ?>            
+          </span>
+        </div><!-- /.info-box-content -->
+      </div><!-- /.info-box -->
+    </div><!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-green"><i class="fa fa-info"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">Dernier fournisseur</span>
+          <span class="info-box-number">
+            <?php 
+            $id_membre = (int)$_SESSION['id_membre'];
+            $nom = $bdd->prepare('SELECT * FROM fournisseurs WHERE id_membre = :id_membre ORDER BY f_date_ajout DESC LIMIT 0, 1');
+            $nom->execute(array('id_membre' => $id_membre));
+            $f_nom = $nom->fetch();
+            if ($f_nom == "") {
+              echo "Aucun";
+            }else{
+              ?>
+              <a href="fournisseur.php?p=<?php echo $f_nom['id_fournisseur']; ?>"><?php echo $f_nom['f_nom']; ?></a></td>
+              <?php
+            }
+            
+            ?>     
+          </span>
+        </div><!-- /.info-box-content -->
+      </div><!-- /.info-box -->
+    </div><!-- /.col -->    
+  </div>
 
   <!-- Small boxes (Stat box) -->
   <div class="row">
@@ -118,6 +171,25 @@ if (isset($_POST['send'])) {
                   </div>
                 </div>
               </div><!-- /.box-body -->
+            </div>
+
+            <div class="form-group">
+              <label for="pays">Pays</label>
+              <div class="box-body">
+                <div class="row">  
+                  <select class="form-control" name="pays">
+                    <option select="selected" value="75">France</option>
+                    <?php $pays = $bdd->query('SELECT * FROM pays');
+                    while ($donnees = $pays->fetch()) {
+                      ?>
+                      <option value="<?php echo $donnees['id']; ?>"><?php echo $donnees['nom_fr_fr']; ?></option>
+                      <?php
+                    }
+                    $pays->closeCursor();
+                    ?>
+                  </select>
+                </div>                  
+              </div>
             </div>
 
             <!-- phone -->
@@ -168,13 +240,23 @@ if (isset($_POST['send'])) {
             <div class="form-group">
               <label for="exampleInputFile">Ajouter un logo</label>
               <input type="file" id="exampleInputFile">
-              <p class="help-block">Example block-level help text here.</p>
+              <p class="help-block">La taille du fichier ne dois pas dépasser 500ko</p>
+            </div> 
+
+
+            <div class="form-group">
+              <label for="adresse_fournisseur">Délai moyen de livraison en jours</label>
+              <div class="box-body">
+                <div class="row">                  
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" name="livraison" placeholder="Délai" value="<?php if (isset($_POST['livraison'])) { echo $_POST['livraison']; } ?>">
+                  </div>                  
+                </div>
+              </div><!-- /.box-body -->
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="active"> Désactiver le fournisseur
-              </label>
-            </div>
+
+
+
           </div><!-- /.box-body -->
 
           <div class="box-footer">

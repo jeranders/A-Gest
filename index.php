@@ -20,7 +20,6 @@
 
   <!-- Main content -->
   <section class="content">
-    <?php var_dump($_SESSION); ?>
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-lg-3 col-xs-6">

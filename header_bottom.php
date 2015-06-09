@@ -4,6 +4,10 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <!-- Ionicons 2.0.0 -->
 <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+<!-- Ion Slider -->
+<link href="../../plugins/ionslider/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
+<!-- ion slider Nice -->
+<link href="../../plugins/ionslider/ion.rangeSlider.skinNice.css" rel="stylesheet" type="text/css" />
 <!-- Theme style -->
 <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
@@ -21,6 +25,8 @@
     <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- bootstrap wysihtml5 - text editor -->
     <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+    <!-- DATA TABLES -->
+    <link href="plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
     <link href="plugins/jeranders.css" rel="stylesheet" type="text/css" />
 
@@ -221,7 +227,8 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i> A propos</a></li>
                   </ul>
                 </li> 
-                <li><a href="ajout_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Ajout d'un fournisseur</span></a></li>
+                <li><a href="ajout_fournisseur.php"><i class="fa fa-file-o"></i> <span>Ajout d'un fournisseur</span></a></li>
+                <li><a href="list_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Liste des fournisseurs</span></a></li>
               </ul>
             </section>
             <!-- /.sidebar -->
