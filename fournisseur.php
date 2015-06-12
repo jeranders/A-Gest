@@ -39,7 +39,7 @@ if (isset($SESSION['id_membre']) != $donnees['id_membre'] AND isset($_GET['p']) 
           <div class="box-header mb-10">
             <h3 class="box-title"><?php echo html_entity_decode($donnees['f_nom']); ?></h3>
           </div><!-- /.box-header -->
-          <img src="dist/img/fournisseur.jpg" class="img-circle" alt="User Image" width="128px" height="128px"/>
+          <img src="<?php echo $donnees['f_logo']; ?>" class="img-circle" alt="User Image" width="128px" height="128px"/>
           <div class="m-10">
             <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Ajouter le <?php echo $donnees['f_date_ajout']; ?>" "><i class="fa fa-calendar"></i></button>
             <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Taux de retard : 2%" "><i class="fa fa-star"></i></button>
