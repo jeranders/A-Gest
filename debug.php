@@ -8,4 +8,6 @@
     <h4>SESSION</h4>
     <p><?php var_dump($_SESSION); ?></p>
   </div>
+
+
   <!-- DEBUG ----------------------------- -->

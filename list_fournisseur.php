@@ -81,7 +81,7 @@
                     }?>
                   </td>
                   <td>
-                    <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Voir" "><i class="fa fa-align-left"></i></button>
+                    <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Voir" "><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" class="c-blanc"><i class="fa fa-search"></i></a></button>
                     <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Modifier" "><i class="fa fa-align-left"></i></button>
                     <button type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Supprimer" "><i class="fa fa-align-left"></i></button>
                     <button type="button" class="btn btn-success btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Activer" "><i class="fa fa-align-left"></i></button>

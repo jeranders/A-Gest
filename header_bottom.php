@@ -4,10 +4,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <!-- Ionicons 2.0.0 -->
 <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
-<!-- Ion Slider -->
-<link href="../../plugins/ionslider/ion.rangeSlider.css" rel="stylesheet" type="text/css" />
-<!-- ion slider Nice -->
-<link href="../../plugins/ionslider/ion.rangeSlider.skinNice.css" rel="stylesheet" type="text/css" />
 <!-- Theme style -->
 <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
@@ -19,6 +15,8 @@
     <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css" />
     <!-- jvectormap -->
     <link href="plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap-filestyle -->
+    <link href="plugins/bootstrap-filestyle/bootstrap-filestyle.css" rel="stylesheet" type="text/css" />    
     <!-- Date Picker -->
     <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
@@ -59,18 +57,21 @@
               <!-- Sidebar toggle button-->
               <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
-              </a>
+              </a>              
               <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
 
                   <!-- Divers infos -->
                   <li>
-                    <a href="#">Capital : <?php echo htmlentities($informations['cg_compte']); ?> &euro;  </a>
+                    <a href="#"><?php echo date("d/m/Y"); ?></a>
+                  </li>
+                  <li>
+                    <a href="#" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="Montant théorique sur votre compte">Compte : <?php echo htmlentities($informations['cg_compte']); ?> &euro;  </a>
                   </li>
 
                   <!-- Chiffre d'affaire -->
                   <li>
-                    <a href="#">CA : 458 &euro;  </a>
+                    <a href="#" data-placement="bottom" data-toggle="tooltip" href="#" data-original-title="<?php echo MoisFrancais(date('m'));?>">CA : 458 &euro;  </a>
                   </li>
                   <!-- Cotisations -->
                   <li>

@@ -27,7 +27,7 @@ if (isset($_POST['send'])) {
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Log inEasy | Gestion </title>
+    <title>Connexion | Easy Gestion</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -75,11 +75,6 @@ if (isset($_POST['send'])) {
           </div>
         </form>
 
-        <div class="social-auth-links text-center">
-          <p>Ou</p>
-          <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Connectez vous avec Facebook</a>
-          <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Connectez vous avec Google+</a>
-        </div><!-- /.social-auth-links -->
 
         <a href="#">J'ai oublié mon mot de passe</a><br>
         <a href="register.html" class="text-center">S'inscrire</a>
