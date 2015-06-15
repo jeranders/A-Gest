@@ -12,6 +12,7 @@
       Panneaux de contrôle
       <small>Accueil</small>
     </h1>
+    <?php echo flash(); ?>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
       <li class="active">Panneaux de contrôle</li>

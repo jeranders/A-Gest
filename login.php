@@ -1,6 +1,7 @@
 <?php 
 include 'bdd.php';
 session_start();
+include 'function.php';
 
 if (isset($_POST['send'])) {
   $pseudo = $_POST['pseudo'];  
@@ -12,12 +13,12 @@ if (isset($_POST['send'])) {
   if ($req->rowCount() > 0 ) {
     $_SESSION['id_membre'] = $donnees['id_membre'];
     $_SESSION['m_pseudo'] = $donnees['m_pseudo'];
-    echo 'Salut';
+    setFlash('Salutation !');
     //setFlash('Bonjour ' . $donnees['m_pseudo'] . ' j\'espère que vous allez bien !');
     header('Location:index.php');
     die();
   }else{
-    echo 'Nom d\'utilisateur ou mot de passe incorrect.';
+    setFlash('Nom d\'utilisateur ou mot de passe incorrect.', 'danger');
   }
 }
 
@@ -46,6 +47,7 @@ if (isset($_POST['send'])) {
     <![endif]-->
   </head>
   <body class="login-page">
+    <?php echo flash(); ?>
     <div class="login-box">
       <div class="login-logo">
         <a href="index.php">Easy Gestion</a>

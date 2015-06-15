@@ -47,7 +47,7 @@
                 while ($donnees = $req->fetch()) {
                  ?>     
                  <tr>                             
-                  <td><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>"><?php echo $donnees['f_nom']; ?></a></td>
+                  <td><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>"><?php echo html_entity_decode($donnees['f_nom']); ?></a></td>
                   <td>
                     <?php
                     if ($donnees['f_tel'] == "") {
@@ -77,14 +77,14 @@
                     if ($donnees['f_site'] == "") {
                       echo "Aucun";
                     }else{
-                      echo $donnees['f_site']; 
+                      echo  '<a href="' . htmlentities($donnees['f_site']) . '" ">' . htmlentities($donnees['f_site']) . '</a>'; 
                     }?>
                   </td>
                   <td>
                     <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Voir" "><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" class="c-blanc"><i class="fa fa-search"></i></a></button>
-                    <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Modifier" "><i class="fa fa-align-left"></i></button>
-                    <button type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Supprimer" "><i class="fa fa-align-left"></i></button>
-                    <button type="button" class="btn btn-success btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Activer" "><i class="fa fa-align-left"></i></button>
+                    <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Modifier" "><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Supprimer" "><i class="fa fa-close"></i></button>
+                    <button type="button" class="btn btn-success btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Activer" "><i class="fa fa-check"></i></button>
                   </td>  
                 </tr>       
                 <?php
