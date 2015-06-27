@@ -13,8 +13,7 @@ if (isset($_POST['send'])) {
   if ($req->rowCount() > 0 ) {
     $_SESSION['id_membre'] = $donnees['id_membre'];
     $_SESSION['m_pseudo'] = $donnees['m_pseudo'];
-    setFlash('Salutation !');
-    //setFlash('Bonjour ' . $donnees['m_pseudo'] . ' j\'espère que vous allez bien !');
+    setFlash('Bonjour ' . $donnees['m_pseudo'] . ' voir les mises à jour');
     header('Location:index.php');
     die();
   }else{
@@ -56,11 +55,11 @@ if (isset($_POST['send'])) {
         <p class="login-box-msg">Connectez-vous pour commencer votre session</p>
         <form action="#" method="post">
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Pseudo" name="pseudo"/>
+            <input type="text" class="form-control" placeholder="Nom d'utilisateur" name="pseudo"/>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" name="password"/>
+            <input type="password" class="form-control" placeholder="Mot de passe" name="password"/>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">

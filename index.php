@@ -1,4 +1,8 @@
-<?php include 'header_top.php'; ?>
+<?php 
+include 'bdd.php';
+session_start();
+include 'function.php';
+include 'header_top.php'; ?>
 <title>Accueil | Easy Gestion</title>
 <meta content='' name='viewport'>
 <?php include 'header_bottom.php'; ?>
@@ -12,6 +16,7 @@
       Panneaux de contrôle
       <small>Accueil</small>
     </h1>
+    <br>
     <?php echo flash(); ?>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>

@@ -1,4 +1,7 @@
-<?php include 'header_top.php'; ?>
+<?php include 'bdd.php';
+session_start(); 
+include 'function.php';
+include 'header_top.php'; ?>
 <title>Liste des fournisseurs | Easy Gestion</title>
 <meta content='' name='viewport'>
 <?php include 'header_bottom.php'; ?>

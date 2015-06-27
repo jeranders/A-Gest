@@ -1,5 +1,8 @@
-<?php include 'header_top.php'; ?>
-<?php // Récupération des commentaires
+<?php include 'bdd.php';
+session_start(); 
+include 'function.php'; ?>
+
+<?php 
 
 $req = $bdd->prepare('SELECT *, DATE_FORMAT(f_date_ajout, \'%d/%m/%Y\') AS f_date_ajout FROM fournisseurs, pays WHERE fournisseurs.f_pays = pays.id AND id_membre = :id_membre AND id_fournisseur = :get');
 $req->bindValue(':id_membre', $_SESSION['id_membre'], PDO::PARAM_INT);
@@ -12,6 +15,14 @@ if (isset($SESSION['id_membre']) != $donnees['id_membre'] AND isset($_GET['p']) 
   die();
 }
 ?>
+
+<?php include 'header_top.php'; ?>
+<title><?php echo html_entity_decode($donnees['f_nom']); ?> | Easy Gestion</title>
+<meta content='' name='viewport'>
+<?php include 'header_bottom.php'; ?>
+
+
+
 
 
 
@@ -131,9 +142,7 @@ if (isset($SESSION['id_membre']) != $donnees['id_membre'] AND isset($_GET['p']) 
 <!-- Modal END -->
 
 
-<title><?php echo html_entity_decode($donnees['f_nom']); ?> | Easy Gestion</title>
-<meta content='' name='viewport'>
-<?php include 'header_bottom.php'; ?>
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

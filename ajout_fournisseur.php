@@ -1,4 +1,8 @@
-<?php include 'header_top.php'; ?>
+<?php 
+include 'bdd.php';
+session_start();
+include 'header_top.php'; ?>
+
 
 <?php 
 
@@ -105,6 +109,8 @@ if (isset($_POST['send'])) {
 }
 }
 ?>
+
+<?php include 'header_bottom.php'; ?>
 
 <title>Ajout d'un fournisseur | Easy Gestion</title>
 <meta content='' name='viewport'>
