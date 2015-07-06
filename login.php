@@ -13,7 +13,7 @@ if (isset($_POST['send'])) {
   if ($req->rowCount() > 0 ) {
     $_SESSION['id_membre'] = $donnees['id_membre'];
     $_SESSION['m_pseudo'] = $donnees['m_pseudo'];
-    setFlash('Bonjour ' . $donnees['m_pseudo'] . ' voir les mises à jour');
+    setFlash('Bonjour ' . $donnees['m_pseudo'] . ' <a href="https://docs.google.com/document/d/192d7Xx-2VnaCpjGB7dQ5hQDdMxKs_cqlc5fmjRF6AeQ/edit?usp=sharing" target="_blank">voir les mises à jour</a>');
     header('Location:index.php');
     die();
   }else{

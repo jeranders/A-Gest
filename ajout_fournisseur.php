@@ -1,10 +1,6 @@
-<?php 
-include 'bdd.php';
-session_start();
-include 'header_top.php'; ?>
-
-
-<?php 
+<?php include 'bdd.php';
+session_start(); 
+include 'function.php';
 
 if (isset($_POST['send'])) {
 
@@ -110,7 +106,7 @@ if (isset($_POST['send'])) {
 }
 ?>
 
-<?php include 'header_bottom.php'; ?>
+<?php include 'header_top.php'; ?>
 
 <title>Ajout d'un fournisseur | Easy Gestion</title>
 <meta content='' name='viewport'>

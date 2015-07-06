@@ -170,7 +170,7 @@
                       <li class="user-header">
                         <img src="dist/img/Gollum.jpg" class="img-circle" alt="User Image" />
                         <p>
-                          Brechoire Jérôme - Easy Gestion
+                          <?php echo htmlentities($informations['m_nom']) . ' ' . htmlentities($informations['m_prenom']); ?> - Easy Gestion
                           <small>Member since Nov. 2012</small>
                         </p>
                       </li>

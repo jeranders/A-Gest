@@ -109,7 +109,7 @@ include 'header_top.php'; ?>
                 <td>28/02/2015</td>
                 <td>2</td>
                 <td>12 &euro;</td>
-                <td><span class="badge bg-red">24 &euro;</span></td>
+                <td><span class="badge bg-red" data-placement="left" data-toggle="tooltip" href="#" data-original-title="À payer">24 &euro;</span></td>
               </tr>
               <tr>
                 <td>189775895</td>
@@ -118,7 +118,7 @@ include 'header_top.php'; ?>
                 <td>28/02/2015</td>
                 <td>1</td>
                 <td>35 &euro;</td>
-                <td><span class="badge bg-green">35 &euro;</span></td>
+                <td><span class="badge bg-green" data-placement="left" data-toggle="tooltip" href="#" data-original-title="Payé">35 &euro;</span></td>
               </tr>                  
             </table>
           </div><!-- /.box-body -->
