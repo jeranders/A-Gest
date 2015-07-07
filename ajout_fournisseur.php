@@ -202,7 +202,7 @@ if ($nom_fournisseur != "") {
 
               <?php if (isset($_POST['nom_fournisseur'])) {
                 ?>
-                <input type="text" class="form-control errorInput" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>"> <?php if (isset($erreur_nom_fournisseur)) { echo $erreur_nom_fournisseur; } ?>
+                <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>">
                 <?php
               }else {
                 ?>
