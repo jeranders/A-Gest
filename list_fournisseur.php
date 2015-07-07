@@ -134,7 +134,7 @@ include 'function.php';
                         }?>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Voir" "><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" class="c-blanc"><i class="fa fa-search"></i></a></button>
+                        <a  <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
                         <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Modifier" "><i class="fa fa-edit"></i></button>
                         <?php if ($donnees['f_active'] == 1) {
                           ?> 
