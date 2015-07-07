@@ -59,3 +59,36 @@ function debug($variable){
     echo '<pre>' . print_r($variable, true) . '</pre>';
 }
 
+function cleanCaracteresSpeciaux ($chaine)
+{
+    setlocale(LC_ALL, 'fr_FR');
+
+    $chaine = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $chaine);
+
+    $chaine = preg_replace('#[^0-9a-z]+#i', '-', $chaine);
+
+    while(strpos($chaine, '--') !== false)
+    {
+        $chaine = str_replace('--', '-', $chaine);
+    }
+
+    $chaine = trim($chaine, '-');
+
+    return $chaine;
+}
+
+
+if (!isset($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = md5(time() + rand());
+}
+
+function csrf(){
+    return 'csrf=' . $_SESSION['csrf'];
+}
+
+function checkCsrf(){
+    if (!isset($_GET['csrf']) || $_GET['csrf'] != $_SESSION['csrf']) {
+        header('Location:csrf.php');
+        die();
+    }
+}

@@ -52,7 +52,7 @@ if ($nom_fournisseur != "") {
 
 
 
-          $name_file = 'dist/img/fournisseurs/' . str_shuffle('Jesuilelogodesfournisseurs') . rand(5,999) . $_FILES['logo']['name']; 
+          $name_file = 'dist/img/fournisseurs/' . str_shuffle('Jesuilelogodesfournisseurs') . rand(5,999) . cleanCaracteresSpeciaux($_FILES['logo']['name']); 
           $name_logo = str_replace(' ', '', $name_file);
           move_uploaded_file($_FILES['logo']['tmp_name'], 'dist/img/fournisseurs/' . basename($name_logo));
 
@@ -79,7 +79,7 @@ if ($nom_fournisseur != "") {
           die();
 
         }else{
-          setFlash('Mauvais format de fichier', 'danger');      
+          setFlash('Mauvais format de fichier. Le fichier doit être en .jpg, .jpeg, .png, .gif', 'danger');      
         }
       }
     }else{
@@ -106,7 +106,7 @@ if ($nom_fournisseur != "") {
    }
  }
 }else{
-  setFlash('Attention format email invalide', 'danger');
+  setFlash('Attention format email invalide ou vide. Mettre null@null.fr par exemple si vous n\'avez aucun email à entrer.', 'danger');
 }
 }else{
   setFlash('Attention le nom du fournisseur est vide', 'danger');
