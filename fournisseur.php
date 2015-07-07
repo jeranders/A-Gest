@@ -241,13 +241,9 @@ include 'function.php';
                <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Ajouter le <?php echo $donnees['f_date_ajout']; ?>" "><i class="fa fa-calendar"></i></button>
                <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Taux de retard : 5%" "><i class="fa fa-star"></i></button>
                <button type="button" class="btn bg-purple btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Jours de livraison : <?php echo $donnees['f_livraison']; ?>" "><i class="fa fa-truck"></i></button>
-               
-
-
                <?php if ($donnees['f_active'] == 1) {
                 ?> 
                 <a href="?p=<?php echo $donnees['id_fournisseur']; ?>&desactiver=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Désactiver le fournisseur" "><i class="fa fa-ban"></i></a>
-
                 <?php
               }else{
                 ?> 
@@ -256,8 +252,6 @@ include 'function.php';
               } 
 
               ?>
-
-
             </div>
 
             <div>
@@ -322,7 +316,7 @@ include 'function.php';
               <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">Modifier</a></li>
               <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="true">Commande terminé</a></li>
               <li class="active"><a href="#tab_4-2" data-toggle="tab" aria-expanded="true">Commande en cours</a></li>
-              
+
               <li class="pull-left header"><i class="fa fa-th"></i> Menu</li>
             </ul>
             <div class="tab-content">
