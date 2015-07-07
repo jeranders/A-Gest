@@ -16,14 +16,6 @@ if (isset($SESSION['id_membre']) != $donnees['id_membre'] AND isset($_GET['p']) 
 
 
 
-
-
-
-
-
-
-
-
 if (isset($_POST['modif'])) {
 
   /* VARIABLE AJOUT FOURNISSEUR DEBUT ******************************/
@@ -44,99 +36,105 @@ if (isset($_POST['modif'])) {
 
   /* VARIABLE AJOUT FOURNISSEUR FIN ********************************/
 
-  if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 
-    if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0){
+  if ($nom_fournisseur != "") {
+
+    if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+
+      if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0){
 
         // Testons si le fichier n'est pas trop gros
-      if ($_FILES['logo']['size'] <= 1000000){
+        if ($_FILES['logo']['size'] <= 1000000){
                 // Testons si l'extension est autorisée
-        $infosfichier = pathinfo($_FILES['logo']['name']);
-        $extension_upload = $infosfichier['extension'];
-        $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
-        if (in_array($extension_upload, $extensions_autorisees)) {
+          $infosfichier = pathinfo($_FILES['logo']['name']);
+          $extension_upload = $infosfichier['extension'];
+          $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
+          if (in_array($extension_upload, $extensions_autorisees)) {
 
-          $name_file = 'dist/img/fournisseurs/' . str_shuffle('Jesuilelogodesfournisseurs') . rand(5,999) . $_FILES['logo']['name']; 
-          $name_logo = str_replace(' ', '', $name_file);
-          move_uploaded_file($_FILES['logo']['tmp_name'], 'dist/img/fournisseurs/' . basename($name_logo));
+            $name_file = 'dist/img/fournisseurs/' . str_shuffle('Jesuilelogodesfournisseurs') . rand(5,999) . $_FILES['logo']['name']; 
+            $name_logo = str_replace(' ', '', $name_file);
+            move_uploaded_file($_FILES['logo']['tmp_name'], 'dist/img/fournisseurs/' . basename($name_logo));
 
-          $req = $bdd->prepare('UPDATE fournisseurs SET f_nom = :nom_fournisseur,
-           f_rue = :rue,
-           f_code_postal = :code_postal,
-           f_ville = :ville,
-           f_pays = :pays,
-           f_tel = :telephone,
-           f_fax = :fax,
-           f_email = :email,
-           f_site = :site,
-           f_commentaire = :commentaire,
-           f_logo = :logo,
-           id_membre = :id_membre,
-           f_livraison = :livraison WHERE id_fournisseur = :get');
+            $req = $bdd->prepare('UPDATE fournisseurs SET f_nom = :nom_fournisseur,
+             f_rue = :rue,
+             f_code_postal = :code_postal,
+             f_ville = :ville,
+             f_pays = :pays,
+             f_tel = :telephone,
+             f_fax = :fax,
+             f_email = :email,
+             f_site = :site,
+             f_commentaire = :commentaire,
+             f_logo = :logo,
+             id_membre = :id_membre,
+             f_livraison = :livraison WHERE id_fournisseur = :get');
 
-          $req->execute(array(
-            'nom_fournisseur' => $nom_fournisseur,
-            'rue'             => $rue,
-            'code_postal'     => $code_postal,
-            'ville'           => $ville,
-            'pays'            => $pays,
-            'telephone'       => $telephone,
-            'fax'             => $fax,
-            'email'           => $email,
-            'site'            => $site,
-            'commentaire'     => $commentaire,
-            'logo'            => $name_logo,
-            'livraison'       => $livraison,
-            'id_membre'       => $id_membre,
-            'get'             => $id_fournisseur
-            ));
+            $req->execute(array(
+              'nom_fournisseur' => $nom_fournisseur,
+              'rue'             => $rue,
+              'code_postal'     => $code_postal,
+              'ville'           => $ville,
+              'pays'            => $pays,
+              'telephone'       => $telephone,
+              'fax'             => $fax,
+              'email'           => $email,
+              'site'            => $site,
+              'commentaire'     => $commentaire,
+              'logo'            => $name_logo,
+              'livraison'       => $livraison,
+              'id_membre'       => $id_membre,
+              'get'             => $id_fournisseur
+              ));
 
-          setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été modifié', 'success');
-          header('Location:fournisseur.php?p='. $id_fournisseur);
-          die();
+            setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été modifié', 'success');
+            header('Location:fournisseur.php?p='. $id_fournisseur);
+            die();
 
-        }else{
-          setFlash('Mauvais format de fichier', 'danger');      
+          }else{
+            setFlash('Mauvais format de fichier', 'danger');      
+          }
         }
+      }else{
+        $req = $bdd->prepare('UPDATE fournisseurs SET f_nom = :nom_fournisseur,
+         f_rue = :rue,
+         f_code_postal = :code_postal,
+         f_ville = :ville,
+         f_pays = :pays,
+         f_tel = :telephone,
+         f_fax = :fax,
+         f_email = :email,
+         f_site = :site,
+         f_commentaire = :commentaire,
+         id_membre = :id_membre,
+         f_livraison = :livraison WHERE id_fournisseur = :get');
+
+        $req->execute(array(
+          'nom_fournisseur' => $nom_fournisseur,
+          'rue'             => $rue,
+          'code_postal'     => $code_postal,
+          'ville'           => $ville,
+          'pays'            => $pays,
+          'telephone'       => $telephone,
+          'fax'             => $fax,
+          'email'           => $email,
+          'site'            => $site,
+          'commentaire'     => $commentaire,
+          'livraison'       => $livraison,
+          'id_membre'       => $id_membre,
+          'get'             => $id_fournisseur
+          ));
+
+        setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été modifié', 'success');
+        header('Location:fournisseur.php?p='. $id_fournisseur);
+        die();
       }
+
+
     }else{
-      $req = $bdd->prepare('UPDATE fournisseurs SET f_nom = :nom_fournisseur,
-       f_rue = :rue,
-       f_code_postal = :code_postal,
-       f_ville = :ville,
-       f_pays = :pays,
-       f_tel = :telephone,
-       f_fax = :fax,
-       f_email = :email,
-       f_site = :site,
-       f_commentaire = :commentaire,
-       id_membre = :id_membre,
-       f_livraison = :livraison WHERE id_fournisseur = :get');
-
-      $req->execute(array(
-        'nom_fournisseur' => $nom_fournisseur,
-        'rue'             => $rue,
-        'code_postal'     => $code_postal,
-        'ville'           => $ville,
-        'pays'            => $pays,
-        'telephone'       => $telephone,
-        'fax'             => $fax,
-        'email'           => $email,
-        'site'            => $site,
-        'commentaire'     => $commentaire,
-        'livraison'       => $livraison,
-        'id_membre'       => $id_membre,
-        'get'             => $id_fournisseur
-        ));
-
-      setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été modifié', 'success');
-      header('Location:fournisseur.php?p='. $id_fournisseur);
-      die();
+      setFlash('Attention format email invalide', 'danger');
     }
-
-
   }else{
-    setFlash('Attention format email invalide', 'danger');
+    setFlash('Attention le nom du fournisseur est vide', 'danger');
   }
 }
 
@@ -165,10 +163,8 @@ if (isset($_POST['modif'])) {
       <li class="active">Liste des fournisseurs</li>
     </ol>
   </section>
-
-  <?php echo flash();
-
-  include 'debug.php'; ?>
+  <br>
+  <?php echo flash(); ?>
 
   <section class="content">
     <div class="row">
@@ -256,7 +252,13 @@ if (isset($_POST['modif'])) {
         <div class="tab-content">
           <div class="tab-pane" id="tab_1-1">
             <b>Commentaire</b>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non est odio ratione harum veritatis quod dolorum nesciunt sit aut sapiente dolorem, vitae excepturi modi placeat! Nulla doloribus deleniti laboriosam praesentium.</p>
+            <p>
+              <?php if ($donnees['f_commentaire'] == "") {
+                echo "Aucun commentaire";
+              }else{
+                echo nl2br($donnees['f_commentaire']);
+              } ?>
+            </p>
             <b>Statistiques</b>
             <p>Il n'y a x commandes</p> 
             <p>Il y a un taux de retard de 5% (3 retard sur 58 commandes)</p>
@@ -313,7 +315,7 @@ if (isset($_POST['modif'])) {
                   <div class="box-body">
                     <div class="row">  
                       <select class="form-control" name="pays">
-                        <option select="selected" value="75">France</option>
+                        <option select="selected" value="<?php echo html_entity_decode($donnees['f_pays']); ?>"><?php echo html_entity_decode($donnees['nom_fr_fr']); ?></option>
                         <?php $pays = $bdd->query('SELECT * FROM pays ORDER BY nom_fr_fr');
                         while ($drap = $pays->fetch()) {
                           ?>

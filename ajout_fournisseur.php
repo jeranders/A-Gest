@@ -22,6 +22,11 @@ if (isset($_POST['send'])) {
   /* VARIABLE AJOUT FOURNISSEUR FIN ********************************/
 
   /*Requete qui recherche dans la BDD si un fournisseur est déjà utilisé*/
+
+if ($nom_fournisseur != "") {
+
+
+
   if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 
     $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre AND fournisseurs.id_membre = :id_membre');
@@ -102,6 +107,9 @@ if (isset($_POST['send'])) {
  }
 }else{
   setFlash('Attention format email invalide', 'danger');
+}
+}else{
+  setFlash('Attention le nom du fournisseur est vide', 'danger');
 }
 }
 ?>
