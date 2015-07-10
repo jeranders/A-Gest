@@ -30,7 +30,7 @@ include 'function.php';
 
       checkCsrf();
 
-      $f_active = 0;
+      $f_active = (int)0;
       $id_fournisseur = (int)$_GET['p'];
 
       $req = $bdd->prepare('UPDATE fournisseurs SET f_active = :f_active WHERE id_fournisseur = :get');
@@ -56,7 +56,7 @@ include 'function.php';
 
       checkCsrf();
 
-      $f_active = 1;
+      $f_active = (int)1;
       $id_fournisseur = (int)$_GET['p'];
 
       $req = $bdd->prepare('UPDATE fournisseurs SET f_active = :f_active WHERE id_fournisseur = :get');
@@ -215,12 +215,12 @@ include 'function.php';
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Profil de <?php echo html_entity_decode($donnees['f_nom']); ?>
-          <small>Accueil</small>
+          Fiche de <?php echo html_entity_decode($donnees['f_nom']); ?>         
         </h1>
         <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
-          <li class="active">Liste des fournisseurs</li>
+          <li><a href="index.php"><i class="fa fa-dashboard"></i> Accueil</a></li>
+          <li class="active"><a href="list_fournisseur.php">Liste des fournisseurs</a></li>
+          <li class="active"><?php echo html_entity_decode($donnees['f_nom']); ?></li>
         </ol>
       </section>
       <br>

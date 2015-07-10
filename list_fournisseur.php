@@ -10,7 +10,7 @@ include 'function.php';
     if(isset($_GET['desactiver'])){
       checkCsrf();
 
-      $f_active = 0;
+      $f_active = (int)0;
       $id_fournisseur = (int)$_GET['desactiver'];;
 
       $req = $bdd->prepare('UPDATE fournisseurs SET f_active = :f_active WHERE id_fournisseur = :get');
@@ -36,7 +36,7 @@ include 'function.php';
 
       checkCsrf();
 
-      $f_active = 1;
+      $f_active = (int)1;
       $id_fournisseur = (int)$_GET['desactiver'];;
 
       $req = $bdd->prepare('UPDATE fournisseurs SET f_active = :f_active WHERE id_fournisseur = :get');
@@ -63,7 +63,6 @@ include 'function.php';
       <section class="content-header">
         <h1>
           Liste des fournisseurs
-          <small>Accueil</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>

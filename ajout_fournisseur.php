@@ -5,7 +5,8 @@ include 'function.php';
 if (isset($_POST['send'])) {
 
   /* VARIABLE AJOUT FOURNISSEUR DEBUT ******************************/
-  $nom_fournisseur = htmlentities($_POST['nom_fournisseur']); 
+  $nom_fournisseur = htmlentities($_POST['nom_fournisseur']);
+  $ref = htmlentities($_POST['ref']);
   $rue = htmlentities($_POST['rue']); 
   $code_postal = (int)$_POST['code_postal']; 
   $ville = htmlentities($_POST['ville']); 
@@ -23,89 +24,91 @@ if (isset($_POST['send'])) {
 
   /*Requete qui recherche dans la BDD si un fournisseur est déjà utilisé*/
 
-if ($nom_fournisseur != "") {
+  if ($nom_fournisseur != "") {
 
 
 
-  if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+    if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 
-    $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre AND fournisseurs.id_membre = :id_membre');
-    $count->bindValue('nom_fournisseur', $nom_fournisseur, PDO::PARAM_STR);
-    $count->bindValue('id_membre', $id_membre, PDO::PARAM_INT);
-    $count->execute();
+      $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre AND fournisseurs.id_membre = :id_membre');
+      $count->bindValue('nom_fournisseur', $nom_fournisseur, PDO::PARAM_STR);
+      $count->bindValue('id_membre', $id_membre, PDO::PARAM_INT);
+      $count->execute();
 
-    if ($count->fetchColumn()) {
-      /*Si le nom du fournisseur entré est déjà utilisé*/
-      setFlash('Attention le nom du fournisseur est déjà utilisé. Si vous avez plusieurs fournisseurs avec le même nom, ajouter un numéro par exemple.', 'danger');
-      $erreur_nom_fournisseur = '<p class="text-red"><i class="fa fa-fw fa-warning"></i> Erreur, le nom du fournisseur est déjà utilisé.</p>';
-    } else {
+      if ($count->fetchColumn()) {
+        /*Si le nom du fournisseur entré est déjà utilisé*/
+        setFlash('Attention le nom du fournisseur est déjà utilisé. Si vous avez plusieurs fournisseurs avec le même nom, ajouter un numéro par exemple.', 'danger');
+        $erreur_nom_fournisseur = '<p class="text-red"><i class="fa fa-fw fa-warning"></i> Erreur, le nom du fournisseur est déjà utilisé.</p>';
+      } else {
 
-     if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0){
+       if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0){
 
         // Testons si le fichier n'est pas trop gros
-      if ($_FILES['logo']['size'] <= 1000000){
+        if ($_FILES['logo']['size'] <= 1000000){
                 // Testons si l'extension est autorisée
-        $infosfichier = pathinfo($_FILES['logo']['name']);
-        $extension_upload = $infosfichier['extension'];
-        $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
-        if (in_array($extension_upload, $extensions_autorisees)) {
+          $infosfichier = pathinfo($_FILES['logo']['name']);
+          $extension_upload = $infosfichier['extension'];
+          $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
+          if (in_array($extension_upload, $extensions_autorisees)) {
 
 
 
-          $name_file = 'dist/img/fournisseurs/' . str_shuffle('Jesuilelogodesfournisseurs') . rand(5,999) . cleanCaracteresSpeciaux($_FILES['logo']['name']); 
-          $name_logo = str_replace(' ', '', $name_file);
-          move_uploaded_file($_FILES['logo']['tmp_name'], 'dist/img/fournisseurs/' . basename($name_logo));
+            $name_file = 'dist/img/fournisseurs/' . str_shuffle('Jesuilelogodesfournisseurs') . rand(5,999) . cleanCaracteresSpeciaux($_FILES['logo']['name']); 
+            $name_logo = str_replace(' ', '', $name_file);
+            move_uploaded_file($_FILES['logo']['tmp_name'], 'dist/img/fournisseurs/' . basename($name_logo));
 
-          $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_rue, f_code_postal, f_ville, f_pays, f_tel , f_fax, f_email, f_site, f_commentaire, f_logo, id_membre, f_date_ajout, f_livraison) 
-            VALUES(:nom_fournisseur, :rue, :code_postal, :ville, :pays, :telephone, :fax, :email, :site, :commentaire, :logo, :id_membre, NOW(), :livraison)');
-          $req->execute(array(
-            'nom_fournisseur' => $nom_fournisseur,
-            'rue'             => $rue,
-            'code_postal'     => $code_postal,
-            'ville'           => $ville,
-            'pays'            => $pays,
-            'telephone'       => $telephone,
-            'fax'             => $fax,
-            'email'           => $email,
-            'site'            => $site,
-            'commentaire'     => $commentaire,
-            'logo'            => $name_logo,
-            'livraison'       => $livraison,
-            'id_membre'       => $id_membre
-            ));
+            $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_ref, f_rue, f_code_postal, f_ville, f_pays, f_tel , f_fax, f_email, f_site, f_commentaire, f_logo, id_membre, f_date_ajout, f_livraison) 
+              VALUES(:nom_fournisseur, :ref, :rue, :code_postal, :ville, :pays, :telephone, :fax, :email, :site, :commentaire, :logo, :id_membre, NOW(), :livraison)');
+            $req->execute(array(
+              'nom_fournisseur' => $nom_fournisseur,
+              'ref'             => $ref,
+              'rue'             => $rue,
+              'code_postal'     => $code_postal,
+              'ville'           => $ville,
+              'pays'            => $pays,
+              'telephone'       => $telephone,
+              'fax'             => $fax,
+              'email'           => $email,
+              'site'            => $site,
+              'commentaire'     => $commentaire,
+              'logo'            => $name_logo,
+              'livraison'       => $livraison,
+              'id_membre'       => $id_membre
+              ));
 
-          setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été enregistré', 'success');
-          header('Location:ajout_fournisseur.php');
-          die();
+            setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été enregistré', 'success');
+            header('Location:ajout_fournisseur.php');
+            die();
 
-        }else{
-          setFlash('Mauvais format de fichier. Le fichier doit être en .jpg, .jpeg, .png, .gif', 'danger');      
+          }else{
+            setFlash('Mauvais format de fichier. Le fichier doit être en .jpg, .jpeg, .png, .gif', 'danger');      
+          }
         }
-      }
-    }else{
-     $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_rue, f_code_postal, f_ville, f_pays, f_tel , f_fax, f_email, f_site, f_commentaire, id_membre, f_date_ajout, f_livraison) 
-      VALUES(:nom_fournisseur, :rue, :code_postal, :ville, :pays, :telephone, :fax, :email, :site, :commentaire, :id_membre,NOW(), :livraison)');
-     $req->execute(array(
-      'nom_fournisseur' => $nom_fournisseur,
-      'rue'             => $rue,
-      'code_postal'     => $code_postal,
-      'ville'           => $ville,
-      'pays'            => $pays,
-      'telephone'       => $telephone,
-      'fax'             => $fax,
-      'email'           => $email,
-      'site'            => $site,
-      'commentaire'     => $commentaire,
-      'livraison'       => $livraison,
-      'id_membre'       => $id_membre
-      ));
+      }else{
+       $req = $bdd->prepare('INSERT INTO fournisseurs(f_nom, f_ref, f_rue, f_code_postal, f_ville, f_pays, f_tel , f_fax, f_email, f_site, f_commentaire, id_membre, f_date_ajout, f_livraison) 
+        VALUES(:nom_fournisseur, :ref, :rue, :code_postal, :ville, :pays, :telephone, :fax, :email, :site, :commentaire, :id_membre,NOW(), :livraison)');
+       $req->execute(array(
+        'nom_fournisseur' => $nom_fournisseur,
+        'ref'             => $ref,
+        'rue'             => $rue,
+        'code_postal'     => $code_postal,
+        'ville'           => $ville,
+        'pays'            => $pays,
+        'telephone'       => $telephone,
+        'fax'             => $fax,
+        'email'           => $email,
+        'site'            => $site,
+        'commentaire'     => $commentaire,
+        'livraison'       => $livraison,
+        'id_membre'       => $id_membre
+        ));
 
-     setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été enregistré', 'success');
-     header('Location:ajout_fournisseur.php');
-     die();
+       setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été enregistré', 'success');
+       header('Location:ajout_fournisseur.php');
+       die();
+     }
    }
- }
-}else{
+ }else{
   setFlash('Attention format email invalide ou vide. Mettre null@null.fr par exemple si vous n\'avez aucun email à entrer.', 'danger');
 }
 }else{
@@ -116,100 +119,129 @@ if ($nom_fournisseur != "") {
 
 <?php include 'header_top.php'; ?>
 
-<title>Ajout d'un fournisseur | Easy Gestion</title>
-<meta content='' name='viewport'>
-<?php $page = 'Ajout d\'un fournisseur'; ?>
-<?php include 'header_bottom.php'; ?>
+<script type="text/javascript">
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-     Ajout d'un fournisseur
-   </h1>
-   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
-    <li class="active">Ajout d'un fournisseur</li>
-  </ol>
-</section>
+function generatePassword() {
+  var length = 8,
+  charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  retVal = "";
+  for (var i = 0, n = charset.length; i < length; ++i) {
+    retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+    //return retVal;
 
-<!-- Main content -->
-<section class="content">
+    document.getElementById("NUM_DECHARGE").value = retVal;
+  }
 
-  <?php //include 'debug.php'; debug($_FILES); ?>
-  <?php echo flash(); ?>
+  </script>
 
-  <div class="row">
-    <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-3">
-      <div class="info-box">
-        <span class="info-box-icon bg-aqua"><i class="fa fa-toggle-up"></i></span>
-        <div class="info-box-content">
-          <span class="info-box-text">Nombre(s) de fournisseurs</span>
-          <span class="info-box-number">
-            <?php 
-            $id_membre = (int)$_SESSION['id_membre'];
-            $nb = $bdd->prepare('SELECT COUNT(*) AS nb_f FROM fournisseurs WHERE id_membre = :id_membre');
-            $nb->execute(array('id_membre' => $id_membre));
-            $nb_f = $nb->fetch();
-            echo (int)$nb_f['nb_f'];
-            ?>            
-          </span>
-        </div><!-- /.info-box-content -->
-      </div><!-- /.info-box -->
-    </div><!-- /.col -->
-    <div class="col-md-3 col-sm-6 col-xs-12">
-      <div class="info-box">
-        <span class="info-box-icon bg-green"><i class="fa fa-info"></i></span>
-        <div class="info-box-content">
-          <span class="info-box-text">Dernier fournisseur</span>
-          <span class="info-box-number">
-            <?php 
-            $id_membre = (int)$_SESSION['id_membre'];
-            $nom = $bdd->prepare('SELECT * FROM fournisseurs WHERE id_membre = :id_membre ORDER BY f_date_ajout DESC LIMIT 0, 1');
-            $nom->execute(array('id_membre' => $id_membre));
-            $f_nom = $nom->fetch();
-            if ($f_nom == "") {
-              echo "Aucun";
-            }else{
-              ?>
-              <a href="fournisseur.php?p=<?php echo (int)$f_nom['id_fournisseur']; ?>"><?php echo html_entity_decode($f_nom['f_nom']); ?></a></td>
-              <?php
-            }
+  <title>Ajout d'un fournisseur | Easy Gestion</title>
+  <meta content='' name='viewport'>
+  <?php $page = 'Ajout d\'un fournisseur'; ?>
+  <?php include 'header_bottom.php'; ?>
 
-            ?>     
-          </span>
-        </div><!-- /.info-box-content -->
-      </div><!-- /.info-box -->
-    </div><!-- /.col -->    
-  </div>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+       Ajout d'un fournisseur
+     </h1>
+     <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+      <li class="active">Ajout d'un fournisseur</li>
+    </ol>
+  </section>
 
-  <!-- Small boxes (Stat box) -->
-  <div class="row">
-    <!-- left column -->
-    <div class="col-md-6 col-md-offset-3">
-      <!-- general form elements -->
-      <div class="box box-primary box-solid">
-        <div class="box-header">
-          <h3 class="box-title">Informations du fournisseur</h3>
-        </div><!-- /.box-header -->
-        <!-- form start -->
-        <form role="form" action="" method="post" enctype="multipart/form-data">
+  <!-- Main content -->
+  <section class="content">
 
-          <div class="box-body">
-            <div class="form-group">
-              <label for="nom_fournisseur">Nom du fournisseur</label>
+    <?php //include 'debug.php'; debug($_FILES); ?>
+    <?php echo flash(); ?>
 
-              <?php if (isset($_POST['nom_fournisseur'])) {
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-aqua"><i class="fa fa-toggle-up"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Nombre(s) de fournisseurs</span>
+            <span class="info-box-number">
+              <?php 
+              $id_membre = (int)$_SESSION['id_membre'];
+              $nb = $bdd->prepare('SELECT COUNT(*) AS nb_f FROM fournisseurs WHERE id_membre = :id_membre');
+              $nb->execute(array('id_membre' => $id_membre));
+              $nb_f = $nb->fetch();
+              echo (int)$nb_f['nb_f'];
+              ?>            
+            </span>
+          </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+      </div><!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-green"><i class="fa fa-info"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Dernier fournisseur</span>
+            <span class="info-box-number">
+              <?php 
+              $id_membre = (int)$_SESSION['id_membre'];
+              $nom = $bdd->prepare('SELECT * FROM fournisseurs WHERE id_membre = :id_membre ORDER BY f_date_ajout DESC LIMIT 0, 1');
+              $nom->execute(array('id_membre' => $id_membre));
+              $f_nom = $nom->fetch();
+              if ($f_nom == "") {
+                echo "Aucun";
+              }else{
                 ?>
-                <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>">
+                <a href="fournisseur.php?p=<?php echo (int)$f_nom['id_fournisseur']; ?>"><?php echo html_entity_decode($f_nom['f_nom']); ?></a></td>
                 <?php
-              }else {
-                ?>
-                <input type="text" class="form-control" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>" required>
-                <?php
-              } ?>
-            </div>            
+              }
+
+              ?>     
+            </span>
+          </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
+      </div><!-- /.col -->    
+    </div>
+
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-6 col-md-offset-3">
+        <!-- general form elements -->
+        <div class="box box-primary box-solid">
+          <div class="box-header">
+            <h3 class="box-title">Informations du fournisseur</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <form role="form" action="" method="post" enctype="multipart/form-data">
+
+            <div class="box-body">
+              <div class="form-group">
+                <label for="nom_fournisseur">Nom du fournisseur</label>
+
+                <?php if (isset($_POST['nom_fournisseur'])) {
+                  ?>
+                  <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>">
+                  <?php
+                }else {
+                  ?>
+                  <input type="text" class="form-control" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>" required>
+                  <?php
+                } ?>
+              </div>      
+
+
+              <!-- REF -->
+              <div class="form-group">
+                <label for="nom_fournisseur">Référence</label>
+                <div class="input-group margin">
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-danger" value="Ajouter" onclick="generatePassword()">Aléatoire</button>
+                  </div><!-- /btn-group -->
+                  <input type="text" class="form-control" id="NUM_DECHARGE" name="ref" value="<?php if (isset($_POST['ref'])) { echo $_POST['ref']; } ?>">
+                </div>
+              </div>
+            
 
             <div class="form-group">
               <label for="adresse_fournisseur">Adresse</label>
