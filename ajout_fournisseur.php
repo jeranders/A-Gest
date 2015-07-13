@@ -6,7 +6,7 @@ if (isset($_POST['send'])) {
 
   /* VARIABLE AJOUT FOURNISSEUR DEBUT ******************************/
   $nom_fournisseur = htmlentities($_POST['nom_fournisseur']);
-  $ref = htmlentities($_POST['ref']);
+  $ref = 'F-' . htmlentities($_POST['ref']);
   $rue = htmlentities($_POST['rue']); 
   $code_postal = (int)$_POST['code_postal']; 
   $ville = htmlentities($_POST['ville']); 
