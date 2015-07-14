@@ -56,7 +56,6 @@ include 'function.php';
     <meta content='' name='viewport'>
     <?php include 'header_bottom.php'; ?>
 
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -83,6 +82,7 @@ include 'function.php';
                   <thead>
                     <tr>
                       <th>Nom</th>
+                      <th>Réf</th>
                       <th>Tel</th>
                       <th>Fax</th>
                       <th>Email</th>
@@ -110,6 +110,14 @@ include 'function.php';
                       </td>
                       <td>
                         <?php
+                        if ($donnees['f_ref'] == "") {
+                          echo "Aucune";
+                        }else{
+                          echo $donnees['f_ref']; 
+                        }?>
+                      </td>
+                      <td>
+                        <?php
                         if ($donnees['f_fax'] == "") {
                           echo "Aucun";
                         }else{
@@ -133,8 +141,9 @@ include 'function.php';
                         }?>
                       </td>
                       <td>
-                        <a  <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
-                        <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Modifier" "><i class="fa fa-edit"></i></button>
+                        <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
+                        <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>#tab_2-2" type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Modifier" "><i class="fa fa-edit"></i></a>
+
                         <?php if ($donnees['f_active'] == 1) {
                           ?> 
                           <a href="?desactiver=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Désactiver le fournisseur" "><i class="fa fa-ban"></i></a>

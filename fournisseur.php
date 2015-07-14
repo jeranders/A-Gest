@@ -310,7 +310,7 @@ include 'function.php';
 
         <div class="col-xs-10">
           <!-- Custom Tabs (Pulled to the right) -->
-          <div class="nav-tabs-custom">
+          <div class="nav-tabs-custom" id="myTabs">
             <ul class="nav nav-tabs pull-right">
               <li class=""><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">Commentaire & statistiques</a></li>
               <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">Modifier</a></li>
