@@ -102,20 +102,20 @@ include 'function.php';
                       <td><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>"><?php echo html_entity_decode($donnees['f_nom']); ?></a></td>
                       <td>
                         <?php
-                        if ($donnees['f_tel'] == "") {
-                          echo "Aucun";
-                        }else{
-                          echo $donnees['f_tel']; 
-                        }?>
-                      </td>
-                      <td>
-                        <?php
                         if ($donnees['f_ref'] == "") {
                           echo "Aucune";
                         }else{
                           echo $donnees['f_ref']; 
                         }?>
                       </td>
+                      <td>
+                        <?php
+                        if ($donnees['f_tel'] == "") {
+                          echo "Aucun";
+                        }else{
+                          echo $donnees['f_tel']; 
+                        }?>
+                      </td>                      
                       <td>
                         <?php
                         if ($donnees['f_fax'] == "") {

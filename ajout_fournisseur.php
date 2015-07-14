@@ -26,8 +26,6 @@ if (isset($_POST['send'])) {
 
   if ($nom_fournisseur != "") {
 
-
-
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 
       $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre AND fournisseurs.id_membre = :id_membre');
