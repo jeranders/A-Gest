@@ -80,9 +80,9 @@ include 'function.php';
 
     if (isset($_POST['modif'])) {
 
-      /* VARIABLE AJOUT FOURNISSEUR DEBUT ******************************/
+      /* VARIABLE MODIF FOURNISSEUR DEBUT ******************************/
       $nom_fournisseur = htmlentities($_POST['nom_fournisseur']); 
-      $ref = 'F-' . htmlentities($_POST['ref']); 
+      $ref = htmlentities($_POST['ref']); 
       $rue = htmlentities($_POST['rue']); 
       $code_postal = (int)$_POST['code_postal']; 
       $ville = htmlentities($_POST['ville']); 
@@ -97,7 +97,7 @@ include 'function.php';
       $id_membre = (int)$_SESSION['id_membre'];
       $id_fournisseur = (int)$_GET['p'];
 
-      /* VARIABLE AJOUT FOURNISSEUR FIN ********************************/
+      /* VARIABLE MODIF FOURNISSEUR FIN ********************************/
 
       if ($nom_fournisseur != "") {
 
