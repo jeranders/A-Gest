@@ -37,7 +37,7 @@ include 'function.php';
       checkCsrf();
 
       $f_active = (int)1;
-      $id_fournisseur = (int)$_GET['desactiver'];;
+      $id_fournisseur = (int)$_GET['active'];;
 
       $req = $bdd->prepare('UPDATE fournisseurs SET f_active = :f_active WHERE id_fournisseur = :get');
 
@@ -217,14 +217,15 @@ include 'function.php';
                         <!--   DEBUT MODAL   -------------------------------------                    -->
 
                         <div class="modal fade" id="<?php echo $donnees['id_fournisseur']; ?>">
+                          
                           <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h3 class="modal-title"><?php echo $donnees['f_nom']; ?></h3>
+                                <h3 class="modal-title">Edition rapide de <?php echo $donnees['f_nom']; ?></h3>
                               </div>
 
-                              <div class="row form-group">
+                              
                                 <div class="modal-body">
 
                                   <form role="form" action="" method="post">
@@ -319,13 +320,13 @@ include 'function.php';
 
                                       <div class="form-group">
                                         <label for="adresse_fournisseur">Délai moyen de livraison en jours</label>
-                                        <div class="box-body">
+                                        
                                           <div class="row">                  
                                             <div class="col-xs-3">
                                               <input type="text" class="form-control" name="livraison" placeholder="Délai" value="<?php echo $donnees['f_livraison']; ?>">
                                             </div>                  
                                           </div>
-                                        </div><!-- /.box-body -->
+                                        
                                       </div>
 
                                     </div><!-- /.box-body -->
@@ -335,7 +336,7 @@ include 'function.php';
                                       <button type="submit" name="modif" class="btn btn-primary">Modifier</button>
                                     </div> 
                                   </form>
-                                </div>
+                                
                               </div> 
 
 
