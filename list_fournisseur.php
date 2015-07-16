@@ -174,7 +174,7 @@ include 'function.php';
                         if ($donnees['f_ref'] == "") {
                           echo "Aucune";
                         }else{
-                          echo $donnees['f_ref']; 
+                          echo 'F-' . $donnees['f_ref']; 
                         }?>
                       </td>
                       <td>
@@ -211,13 +211,13 @@ include 'function.php';
                       </td>
                       <td>
                         <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
 
 
                         <!--   DEBUT MODAL   -------------------------------------                    -->
 
                         <div class="modal fade" id="<?php echo $donnees['id_fournisseur']; ?>">
-                          
+
                           <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -226,116 +226,116 @@ include 'function.php';
                               </div>
 
                               
-                                <div class="modal-body">
+                              <div class="modal-body">
 
-                                  <form role="form" action="" method="post">
-                                    <input type="hidden" name="id_fournisseur" value="<?php echo $donnees['id_fournisseur']; ?>"> 
-                                    <div class="box-body">
+                                <form role="form" action="" method="post">
+                                  <input type="hidden" name="id_fournisseur" value="<?php echo $donnees['id_fournisseur']; ?>"> 
+                                  <div class="box-body">
 
-                                      <div class="form-group">
-                                        <label for="nom_fournisseur">Nom du fournisseur</label>
+                                    <div class="form-group">
+                                      <label for="nom_fournisseur">Nom du fournisseur</label>
 
-                                        <?php if (isset($_POST['nom_fournisseur'])) {
-                                          ?>
-                                          <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>">
-                                          <?php
-                                        }else {
-                                          ?>
-                                          <input type="text" class="form-control" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php echo $donnees['f_nom']; ?>" required>
-                                          <?php
-                                        } ?>
+                                      <?php if (isset($_POST['nom_fournisseur'])) {
+                                        ?>
+                                        <input type="text" class="form-control" id="nom_fournisseur" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php if (isset($_POST['nom_fournisseur'])) { echo $_POST['nom_fournisseur']; } ?>">
+                                        <?php
+                                      }else {
+                                        ?>
+                                        <input type="text" class="form-control" placeholder="Entrer un nom" name="nom_fournisseur" value="<?php echo $donnees['f_nom']; ?>" required>
+                                        <?php
+                                      } ?>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="adresse_fournisseur">Adresse</label>
+                                      <div class="box-body">
+                                        <div class="row">
+                                          <div class="col-xs-5">
+                                            <input type="text" class="form-control" name="rue" placeholder="Rue" value="<?php echo $donnees['f_rue']; ?>">
+                                          </div>
+                                          <div class="col-xs-3">
+                                            <?php if ($donnees['f_code_postal'] == 0 ) {
+                                              ?>
+                                              <input type="text" class="form-control" name="code_postal" placeholder="Code Postal">
+                                              <?php 
+                                            }else{
+                                              ?>
+                                              <input type="text" class="form-control" name="code_postal" placeholder="Code Postal" value="<?php echo $donnees['f_code_postal']; ?>">
+                                              <?php
+                                            } ?>
+
+                                          </div>
+                                          <div class="col-xs-4">
+                                            <input type="text" class="form-control" name="ville" placeholder="Ville" value="<?php echo $donnees['f_ville']; ?>">
+                                          </div>
+                                        </div>
+                                      </div><!-- /.box-body -->
+                                    </div>
+
+                                    <!-- phone -->
+                                    <div class="form-group">
+                                      <label>Téléphone</label>
+                                      <div class="input-group">
+                                        <div class="input-group-addon">
+                                          <i class="fa fa-phone"></i>
+                                        </div>
+                                        <input type="text" class="form-control" name="telephone" placeholder="0102030405" value="<?php echo $donnees['f_tel']; ?>">
+                                      </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
+
+                                    <div class="form-group">
+                                      <label>Fax</label>
+                                      <div class="input-group">
+                                        <div class="input-group-addon">
+                                          <i class="fa fa-fax"></i>
+                                        </div>
+                                        <input type="text" class="form-control" name="fax" placeholder="0102030406" value="<?php echo $donnees['f_fax']; ?>">
+                                      </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
+
+                                    <div class="form-group">
+                                      <label>Email</label>
+                                      <div class="input-group">
+                                        <div class="input-group-addon">
+                                          <i class="fa fa-envelope"></i>
+                                        </div>
+                                        <input type="email" class="form-control" name="email" placeholder="email@email.com" value="<?php echo $donnees['f_email']; ?>">
+                                      </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
+
+                                    <div class="form-group">
+                                      <label>Site</label>
+                                      <div class="input-group">
+                                        <div class="input-group-addon">
+                                          <i class="fa fa-wifi"></i>
+                                        </div>
+                                        <input type="text" class="form-control" name="site" placeholder="http://site.com" value="<?php echo $donnees['f_site']; ?>">
+                                      </div><!-- /.input group -->
+                                    </div><!-- /.form group -->
+
+                                    <div class="form-group">
+                                      <label>Commentaire</label>
+                                      <textarea class="form-control" rows="3" placeholder="Entrer ..." name="commentaire"><?php echo $donnees['f_commentaire']; ?></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="adresse_fournisseur">Délai moyen de livraison en jours</label>
+
+                                      <div class="row">                  
+                                        <div class="col-xs-3">
+                                          <input type="text" class="form-control" name="livraison" placeholder="Délai" value="<?php echo $donnees['f_livraison']; ?>">
+                                        </div>                  
                                       </div>
 
-                                      <div class="form-group">
-                                        <label for="adresse_fournisseur">Adresse</label>
-                                        <div class="box-body">
-                                          <div class="row">
-                                            <div class="col-xs-5">
-                                              <input type="text" class="form-control" name="rue" placeholder="Rue" value="<?php echo $donnees['f_rue']; ?>">
-                                            </div>
-                                            <div class="col-xs-3">
-                                              <?php if ($donnees['f_code_postal'] == 0 ) {
-                                                ?>
-                                                <input type="text" class="form-control" name="code_postal" placeholder="Code Postal">
-                                                <?php 
-                                              }else{
-                                                ?>
-                                                <input type="text" class="form-control" name="code_postal" placeholder="Code Postal" value="<?php echo $donnees['f_code_postal']; ?>">
-                                                <?php
-                                              } ?>
+                                    </div>
 
-                                            </div>
-                                            <div class="col-xs-4">
-                                              <input type="text" class="form-control" name="ville" placeholder="Ville" value="<?php echo $donnees['f_ville']; ?>">
-                                            </div>
-                                          </div>
-                                        </div><!-- /.box-body -->
-                                      </div>
+                                  </div><!-- /.box-body -->
 
-                                      <!-- phone -->
-                                      <div class="form-group">
-                                        <label>Téléphone</label>
-                                        <div class="input-group">
-                                          <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
-                                          </div>
-                                          <input type="text" class="form-control" name="telephone" placeholder="0102030405" value="<?php echo $donnees['f_tel']; ?>">
-                                        </div><!-- /.input group -->
-                                      </div><!-- /.form group -->
-
-                                      <div class="form-group">
-                                        <label>Fax</label>
-                                        <div class="input-group">
-                                          <div class="input-group-addon">
-                                            <i class="fa fa-fax"></i>
-                                          </div>
-                                          <input type="text" class="form-control" name="fax" placeholder="0102030406" value="<?php echo $donnees['f_fax']; ?>">
-                                        </div><!-- /.input group -->
-                                      </div><!-- /.form group -->
-
-                                      <div class="form-group">
-                                        <label>Email</label>
-                                        <div class="input-group">
-                                          <div class="input-group-addon">
-                                            <i class="fa fa-envelope"></i>
-                                          </div>
-                                          <input type="email" class="form-control" name="email" placeholder="email@email.com" value="<?php echo $donnees['f_email']; ?>">
-                                        </div><!-- /.input group -->
-                                      </div><!-- /.form group -->
-
-                                      <div class="form-group">
-                                        <label>Site</label>
-                                        <div class="input-group">
-                                          <div class="input-group-addon">
-                                            <i class="fa fa-wifi"></i>
-                                          </div>
-                                          <input type="text" class="form-control" name="site" placeholder="http://site.com" value="<?php echo $donnees['f_site']; ?>">
-                                        </div><!-- /.input group -->
-                                      </div><!-- /.form group -->
-
-                                      <div class="form-group">
-                                        <label>Commentaire</label>
-                                        <textarea class="form-control" rows="3" placeholder="Entrer ..." name="commentaire"><?php echo $donnees['f_commentaire']; ?></textarea>
-                                      </div>
-
-                                      <div class="form-group">
-                                        <label for="adresse_fournisseur">Délai moyen de livraison en jours</label>
-                                        
-                                          <div class="row">                  
-                                            <div class="col-xs-3">
-                                              <input type="text" class="form-control" name="livraison" placeholder="Délai" value="<?php echo $donnees['f_livraison']; ?>">
-                                            </div>                  
-                                          </div>
-                                        
-                                      </div>
-
-                                    </div><!-- /.box-body -->
-
-                                    <div class="modal-footer">
-                                      <a href="" class="btn btn-default" data-dismiss="modal">Fermer</a>
-                                      <button type="submit" name="modif" class="btn btn-primary">Modifier</button>
-                                    </div> 
-                                  </form>
+                                  <div class="modal-footer">
+                                    <a href="" class="btn btn-default" data-dismiss="modal">Fermer</a>
+                                    <button type="submit" name="modif" class="btn btn-primary">Modifier</button>
+                                  </div> 
+                                </form>
                                 
                               </div> 
 
