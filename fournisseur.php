@@ -279,6 +279,17 @@ include 'function.php';
           <div>
             <div class="box-body">
               <dl>
+
+                <dt>Référence</dt>
+                <dd>
+                  <?php
+                  if ($donnees['f_ref'] == "") {
+                    echo "Aucune";
+                  }else{
+                    echo 'F-' . html_entity_decode($donnees['f_ref']);
+                  }?>
+                </dd>
+
                 <dt>Adresse</dt>
                 <dd>
                   <?php
@@ -287,7 +298,8 @@ include 'function.php';
                   }else{
                     echo html_entity_decode($donnees['f_rue']) . ' ' . htmlspecialchars($donnees['f_code_postal']) . ' ' . html_entity_decode($donnees['f_ville']);
                   }?>
-                </dd>
+                </dd>              
+
                 <dt>Pays</dt>
 
                 <dd><img data-placement="top" data-toggle="tooltip" href="#" data-original-title="<?php echo html_entity_decode($donnees['nom_fr_fr']); ?>" src="dist/img/pays/<?php echo strtolower(htmlspecialchars($donnees['alpha2'])); ?>.png"></dd>
@@ -538,8 +550,6 @@ include 'function.php';
           </div><!-- /.tab-content -->
         </div><!-- nav-tabs-custom -->
       </div>
-
-
 
 
     </div><!-- /.row -->
