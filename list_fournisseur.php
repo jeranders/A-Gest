@@ -135,9 +135,11 @@ if (isset($_POST['modif'])) {
       </ol>
     </section>
 
-    <?php echo flash(); ?>
+   
 
-    <section class="content">
+    <section class="content"> 
+
+      <?php echo flash(); ?>
       <div class="row">
         <div class="col-xs-12">
 
