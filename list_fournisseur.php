@@ -135,6 +135,8 @@ if (isset($_POST['modif'])) {
       </ol>
     </section>
 
+    <?php echo flash(); ?>
+
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
@@ -148,7 +150,8 @@ if (isset($_POST['modif'])) {
                 <thead>
                   <tr>
                     <th>Nom</th>
-                    <th>Réf</th>
+                    <th>Référence</th>
+                    <th>Pays</th>
                     <th>Tel</th>
                     <th>Fax</th>
                     <th>Email</th>
@@ -164,52 +167,6 @@ if (isset($_POST['modif'])) {
                   $req->execute(array('id_membre' => $id_membre));
                   while ($donnees = $req->fetch()) {
                     ?>
-                    <tr>
-                      <td><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>"><?php echo html_entity_decode($donnees['f_nom']); ?></a></td>
-                      <td>
-                        <?php
-                        if ($donnees['f_ref'] == "") {
-                          echo "Aucune";
-                        }else{
-                          echo 'F-' . $donnees['f_ref'];
-                        }?>
-                      </td>
-                      <td>
-                        <?php
-                        if ($donnees['f_tel'] == "") {
-                          echo "Aucun";
-                        }else{
-                          echo $donnees['f_tel'];
-                        }?>
-                      </td>
-                      <td>
-                        <?php
-                        if ($donnees['f_fax'] == "") {
-                          echo "Aucun";
-                        }else{
-                          echo $donnees['f_fax'];
-                        }?>
-                      </td>
-                      <td>
-                        <?php
-                        if ($donnees['f_email'] == "") {
-                          echo "Aucun";
-                        }else{
-                          echo $donnees['f_email'];
-                        }?>
-                      </td>
-                      <td>
-                        <?php
-                        if ($donnees['f_site'] == "") {
-                          echo "Aucun";
-                        }else{
-                          echo  '<a href="' . htmlentities($donnees['f_site']) . '" ">' . htmlentities($donnees['f_site']) . '</a>';
-                        }?>
-                      </td>
-                      <td>
-                        <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
-
 
                         <!--   DEBUT MODAL   -------------------------------------                    -->
 
@@ -341,6 +298,61 @@ if (isset($_POST['modif'])) {
 
 
                         <!--   FIN MODAL   -------------------------------------                    -->
+                    <tr>
+                      <td><a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>"><?php echo html_entity_decode($donnees['f_nom']); ?></a></td>
+                      <td>
+                        <?php
+                        if ($donnees['f_ref'] == "") {
+                          echo "Aucune";
+                        }else{
+                          echo 'F-' . $donnees['f_ref'];
+                        }?>
+                      </td>
+                      <td>
+                        <?php
+                        if ($donnees['f_pays'] == "") {
+                          echo "Aucune";
+                        }else{
+                          echo $donnees['f_pays'];
+                        }?>
+                      </td>
+                      <td>
+                        <?php
+                        if ($donnees['f_tel'] == "") {
+                          echo "Aucun";
+                        }else{
+                          echo $donnees['f_tel'];
+                        }?>
+                      </td>
+                      <td>
+                        <?php
+                        if ($donnees['f_fax'] == "") {
+                          echo "Aucun";
+                        }else{
+                          echo $donnees['f_fax'];
+                        }?>
+                      </td>
+                      <td>
+                        <?php
+                        if ($donnees['f_email'] == "") {
+                          echo "Aucun";
+                        }else{
+                          echo $donnees['f_email'];
+                        }?>
+                      </td>
+                      <td>
+                        <?php
+                        if ($donnees['f_site'] == "") {
+                          echo "Aucun";
+                        }else{
+                          echo  '<a href="' . htmlentities($donnees['f_site']) . '" ">' . htmlentities($donnees['f_site']) . '</a>';
+                        }?>
+                      </td>
+                      <td>
+                        <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
+
+
 
                         <?php if ($donnees['f_active'] == 1) {
                           ?>
@@ -368,6 +380,9 @@ if (isset($_POST['modif'])) {
     </section><!-- /.content -->
 
   </div><!-- /.content-wrapper -->
+
+
+
 
 
   <?php echo include 'footer.php'; ?>
