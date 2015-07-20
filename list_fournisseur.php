@@ -163,7 +163,7 @@ if (isset($_POST['modif'])) {
 
                   <?php
                   $id_membre = (int)$_SESSION['id_membre'];
-                  $req = $bdd->prepare('SELECT * FROM fournisseurs WHERE id_membre = :id_membre');
+                  $req = $bdd->prepare('SELECT * FROM fournisseurs, pays WHERE fournisseurs.f_pays = pays.id AND id_membre = :id_membre');
                   $req->execute(array('id_membre' => $id_membre));
                   while ($donnees = $req->fetch()) {
                     ?>
@@ -310,10 +310,10 @@ if (isset($_POST['modif'])) {
                       </td>
                       <td>
                         <?php
-                        if ($donnees['f_pays'] == "") {
+                        if ($donnees['nom_fr_fr'] == "") {
                           echo "Aucune";
                         }else{
-                          echo $donnees['f_pays'];
+                          echo $donnees['nom_fr_fr'];
                         }?>
                       </td>
                       <td>
@@ -352,12 +352,9 @@ if (isset($_POST['modif'])) {
                         <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
 
-
-
                         <?php if ($donnees['f_active'] == 1) {
                           ?>
                           <a href="?desactiver=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Désactiver le fournisseur" "><i class="fa fa-ban"></i></a>
-
                           <?php
                         }else{
                           ?>
@@ -380,9 +377,5 @@ if (isset($_POST['modif'])) {
     </section><!-- /.content -->
 
   </div><!-- /.content-wrapper -->
-
-
-
-
 
   <?php echo include 'footer.php'; ?>
