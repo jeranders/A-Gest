@@ -4,10 +4,10 @@ include 'function.php';
 
 if (isset($_POST['send'])) {  
   $nom_categorie  = htmlentities($_POST['nom_categorie']);
-  $ref            = htmlentities($_POST['ref']);
   $description    = htmlentities($_POST['description']);
-  $active         = (int)1;
   $logo           = $_FILES['logo'];
+  $ref            = htmlentities($_POST['ref']); 
+  $active         = (int)1;
   $id_membre      = (int)$_SESSION['id_membre'];
 
   if ($nom_categorie != '') {
@@ -18,7 +18,6 @@ if (isset($_POST['send'])) {
     $count->execute();
 
     if ($count->fetchColumn()) {
-      /*Si le nom du fournisseur entré est déjà utilisé*/
       setFlash('Attention le nom de la catégorie est déjà utilisé. Si vous avez plusieurs catégories avec le même nom, ajouter un numéro par exemple.', 'danger');
     } else {     
 
@@ -41,20 +40,21 @@ if (isset($_POST['send'])) {
             $req->execute(array(
               'c_nom'         => $nom_categorie,
               'c_description' => $description,
-              'c_logo'        => $logo,
+              'c_logo'        => $name_logo,
               'c_ref'         => $ref,
               'c_active'      => $active,
               'id_membre'     => $id_membre
               ));
 
-            /*setFlash('La catégorie ' . $nom_categorie .' a bien été enregistré', 'success');
+            setFlash('La catégorie ' . $nom_categorie .' a bien été enregistré', 'success');
             header('Location:ajout_categorie.php');
-            die();*/
+            die();
 
           }else{
             setFlash('Mauvais format de fichier. Le fichier doit être en .jpg, .jpeg, .png, .gif', 'danger');      
           }
         }
+
       }else{
         $req = $bdd->prepare('INSERT INTO categories(c_nom, c_description, c_ref, c_date_ajout, c_active, id_membre) 
           VALUES(:c_nom, :c_description, :c_ref, NOW(), :c_active, :id_membre)');
@@ -65,26 +65,19 @@ if (isset($_POST['send'])) {
           'c_active'      => $active,
           'id_membre'     => $id_membre
           ));
-/*
+
         setFlash('La catégorie ' . $nom_categorie .' a bien été enregistré', 'success');
         header('Location:ajout_categorie.php');
-        die();*/
+        die();
       }
 
     }
-
-
-
-
-
 
   }else{
     setFlash('Attention le nom de la catégorie est vide', 'danger');
   }
 
 }
-
-
 
 include 'header_top.php'; ?>
 
@@ -127,7 +120,6 @@ function generatePassword() {
   <!-- Main content -->
   <section class="content">
 
-    <?php include 'debug.php'; debug($_FILES); var_dump($_FILES); ?>
     <?php echo flash();?>
 
     <div class="row">
@@ -203,7 +195,7 @@ function generatePassword() {
 
               <!-- REF -->
               <div class="form-group">
-                <label for="nom_fournisseur">Référence</label>
+                <label for="reference">Référence</label>
                 <div class="input-group margin">
                   <div class="input-group-btn">
                     <button type="button" class="btn btn-danger" value="Ajouter" onclick="generatePassword()">Aléatoire</button>

@@ -241,7 +241,7 @@ include 'function.php';
       </h1>
       <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i> Accueil</a></li>
-        <li class="active"><a href="list_fournisseur.php">Liste des fournisseurs</a></li>
+        <li class="active"><a href="liste_fournisseur.php">Liste des fournisseurs</a></li>
         <li class="active"><?php echo html_entity_decode($donnees['f_nom']); ?></li>
       </ol>
     </section>

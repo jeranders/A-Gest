@@ -65,7 +65,7 @@ function cleanCaracteresSpeciaux ($chaine)
 
     $chaine = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $chaine);
 
-    $chaine = preg_replace('#[^0-9a-z]+#i', '-', $chaine);
+    $chaine = preg_replace('#[^0-9a-z]+#i', '.', $chaine);
 
     while(strpos($chaine, '--') !== false)
     {

@@ -19,7 +19,7 @@ if(isset($_GET['desactiver'])){
     'get'        => $id_fournisseur
   ));
   setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été désactiver. Cliquez sur <i class="fa fa-check"></i> pour le réactiver.', 'success');
-  header('Location:list_fournisseur.php');
+  header('Location:liste_fournisseur.php');
   die();
 }
 
@@ -45,7 +45,7 @@ if(isset($_GET['active'])){
     'get'        => $id_fournisseur
   ));
   setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été activé.  Cliquez sur <i class="fa fa-ban"></i> pour le désactiver.', 'success');
-  header('Location:list_fournisseur.php');
+  header('Location:liste_fournisseur.php');
   die();
 }
 
@@ -101,7 +101,7 @@ if (isset($_POST['modif'])) {
         ));
 
         setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été modifié', 'success');
-        header('Location:list_fournisseur.php');
+        header('Location:liste_fournisseur.php');
         die();
 
       }else{
@@ -352,7 +352,7 @@ if (isset($_POST['modif'])) {
                       </td>
                       <td>
                         <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-warning data-placement="top" data-toggle="tooltip" data-original-title="Modifier"" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
 
                         <?php if ($donnees['f_active'] == 1) {
                           ?>

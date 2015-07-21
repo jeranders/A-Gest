@@ -229,8 +229,9 @@
                   </ul>
                 </li> 
                 <li><a href="ajout_fournisseur.php"><i class="fa fa-file-o"></i> <span>Ajout d'un fournisseur</span></a></li>
-                <li><a href="list_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Liste des fournisseurs</span></a></li>
+                <li><a href="liste_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Liste des fournisseurs</span></a></li>
                 <li><a href="ajout_categorie.php"><i class="fa fa-file-o"></i> <span>Ajout d'une catégorie</span></a></li>
+                <li><a href="liste_categorie.php"><i class="fa fa-list-alt"></i> <span>Liste des catégories</span></a></li>
               </ul>
             </section>
             <!-- /.sidebar -->
