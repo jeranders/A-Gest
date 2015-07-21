@@ -352,7 +352,7 @@ if (isset($_POST['modif'])) {
                       </td>
                       <td>
                         <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
-                        <button type="button" class="btn btn-warning data-placement="top" data-toggle="tooltip" data-original-title="Modifier"" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
 
                         <?php if ($donnees['f_active'] == 1) {
                           ?>

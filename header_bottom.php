@@ -232,6 +232,8 @@
                 <li><a href="liste_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Liste des fournisseurs</span></a></li>
                 <li><a href="ajout_categorie.php"><i class="fa fa-file-o"></i> <span>Ajout d'une catégorie</span></a></li>
                 <li><a href="liste_categorie.php"><i class="fa fa-list-alt"></i> <span>Liste des catégories</span></a></li>
+                <li><a href="ajout_produit.php"><i class="fa fa-file-o"></i> <span>Ajout d'un produit</span></a></li>
+                <li><a href="liste_produit.php"><i class="fa fa-list-alt"></i> <span>Liste des produits</span></a></li>
               </ul>
             </section>
             <!-- /.sidebar -->

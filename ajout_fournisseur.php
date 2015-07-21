@@ -239,120 +239,120 @@ function generatePassword() {
                   <input type="text" class="form-control" id="NUM_DECHARGE" name="ref" value="<?php if (isset($_POST['ref'])) { echo $_POST['ref']; } ?>">
                 </div>
               </div>
-            
+              
 
-            <div class="form-group">
-              <label for="adresse_fournisseur">Adresse</label>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-xs-5">
-                    <input type="text" class="form-control" name="rue" placeholder="Rue" value="<?php if (isset($_POST['rue'])) { echo $_POST['rue']; } ?>">
+              <div class="form-group">
+                <label for="adresse_fournisseur">Adresse</label>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-xs-5">
+                      <input type="text" class="form-control" name="rue" placeholder="Rue" value="<?php if (isset($_POST['rue'])) { echo $_POST['rue']; } ?>">
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="code_postal" placeholder="Code Postal" value="<?php if (isset($_POST['code_postal'])) { echo $_POST['code_postal']; } ?>">
+                    </div>
+                    <div class="col-xs-4">
+                      <input type="text" class="form-control" name="ville" placeholder="Ville" value="<?php if (isset($_POST['ville'])) { echo $_POST['ville']; } ?>">
+                    </div>
                   </div>
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="code_postal" placeholder="Code Postal" value="<?php if (isset($_POST['code_postal'])) { echo $_POST['code_postal']; } ?>">
-                  </div>
-                  <div class="col-xs-4">
-                    <input type="text" class="form-control" name="ville" placeholder="Ville" value="<?php if (isset($_POST['ville'])) { echo $_POST['ville']; } ?>">
-                  </div>
-                </div>
-              </div><!-- /.box-body -->
-            </div>
-
-            <div class="form-group">
-              <label for="pays">Pays</label>
-              <div class="box-body">
-                <div class="row">  
-                  <select class="form-control" name="pays">
-                    <option select="selected" value="75">France</option>
-                    <?php $pays = $bdd->query('SELECT * FROM pays ORDER BY nom_fr_fr');
-                    while ($donnees = $pays->fetch()) {
-                      ?>
-                      <option value="<?php echo $donnees['id']; ?>"><?php echo $donnees['nom_fr_fr']; ?></option>
-                      <?php
-                    }
-                    $pays->closeCursor();
-                    ?>
-                  </select>
-                </div>                  
+                </div><!-- /.box-body -->
               </div>
-            </div>
 
-            <!-- phone -->
-            <div class="form-group">
-              <label>Téléphone</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-phone"></i>
-                </div>
-                <input type="text" class="form-control" name="telephone" placeholder="0102030405" value="<?php if (isset($_POST['telephone'])) { echo $_POST['telephone']; } ?>"/>
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
-
-            <div class="form-group">
-              <label>Fax</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-fax"></i>
-                </div>
-                <input type="text" class="form-control" name="fax" placeholder="0102030406" value="<?php if (isset($_POST['fax'])) { echo $_POST['fax']; } ?>"/>
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
-
-            <div class="form-group">
-              <label>Email</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-envelope"></i>
-                </div>
-                <input type="email" class="form-control" name="email" placeholder="email@email.com" value="<?php if (isset($_POST['email'])) { echo $_POST['email']; } ?>"/>
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
-
-            <div class="form-group">
-              <label>Site</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-wifi"></i>
-                </div>
-                <input type="text" class="form-control" name="site" placeholder="http://site.com" value="<?php if (isset($_POST['site'])) { echo $_POST['site']; } ?>"/>
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
-
-            <div class="form-group">
-              <label>Commentaire</label>
-              <textarea class="form-control" rows="3" placeholder="Entrer ..." name="commentaire"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="file">Ajouter un logo</label>
-              <input type="file" id="file" name="logo" class="btn-default">
-              <p class="help-block">La taille du fichier ne dois pas dépasser 500ko</p>
-            </div> 
-
-            <div class="form-group">
-              <label for="adresse_fournisseur">Délai moyen de livraison en jours</label>
-              <div class="box-body">
-                <div class="row">                  
-                  <div class="col-xs-3">
-                    <input type="text" class="form-control" name="livraison" placeholder="Délai" value="<?php if (isset($_POST['livraison'])) { echo $_POST['livraison']; } ?>">
+              <div class="form-group">
+                <label for="pays">Pays</label>
+                <div class="box-body">
+                  <div class="row">  
+                    <select class="form-control" name="pays">
+                      <option select="selected" value="75">France</option>
+                      <?php $pays = $bdd->query('SELECT * FROM pays ORDER BY nom_fr_fr');
+                      while ($donnees = $pays->fetch()) {
+                        ?>
+                        <option value="<?php echo $donnees['id']; ?>" <?php if (isset($_POST['pays']) && $_POST['pays']== $donnees['id']) echo 'selected="selected"';?> ><?php echo $donnees['nom_fr_fr']; ?></option>
+                        <?php
+                      }
+                      $pays->closeCursor();
+                      ?>
+                    </select>
                   </div>                  
                 </div>
-              </div><!-- /.box-body -->
+              </div>
+
+              <!-- phone -->
+              <div class="form-group">
+                <label>Téléphone</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-phone"></i>
+                  </div>
+                  <input type="text" class="form-control" name="telephone" placeholder="0102030405" value="<?php if (isset($_POST['telephone'])) { echo $_POST['telephone']; } ?>"/>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Fax</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-fax"></i>
+                  </div>
+                  <input type="text" class="form-control" name="fax" placeholder="0102030406" value="<?php if (isset($_POST['fax'])) { echo $_POST['fax']; } ?>"/>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Email</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-envelope"></i>
+                  </div>
+                  <input type="email" class="form-control" name="email" placeholder="email@email.com" value="<?php if (isset($_POST['email'])) { echo $_POST['email']; } ?>"/>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Site</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-wifi"></i>
+                  </div>
+                  <input type="text" class="form-control" name="site" placeholder="http://site.com" value="<?php if (isset($_POST['site'])) { echo $_POST['site']; } ?>"/>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Commentaire</label>
+                <textarea class="form-control" rows="3" placeholder="Entrer ..." name="commentaire"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="file">Ajouter un logo</label>
+                <input type="file" id="file" name="logo" class="btn-default">
+                <p class="help-block">La taille du fichier ne dois pas dépasser 500ko</p>
+              </div> 
+
+              <div class="form-group">
+                <label for="adresse_fournisseur">Délai moyen de livraison en jours</label>
+                <div class="box-body">
+                  <div class="row">                  
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control" name="livraison" placeholder="Délai" value="<?php if (isset($_POST['livraison'])) { echo $_POST['livraison']; } ?>">
+                    </div>                  
+                  </div>
+                </div><!-- /.box-body -->
+              </div>
+
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" name="send" class="btn btn-primary">Ajouter</button>
             </div>
+          </form>
+        </div><!-- /.box -->
 
-          </div><!-- /.box-body -->
+      </div><!--/.col -->
+      <!-- right column -->
 
-          <div class="box-footer">
-            <button type="submit" name="send" class="btn btn-primary">Ajouter</button>
-          </div>
-        </form>
-      </div><!-- /.box -->
+    </div>   <!-- /.row -->
 
-    </div><!--/.col -->
-    <!-- right column -->
-
-  </div>   <!-- /.row -->
-
-</section><!-- /.content -->
+  </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
 <?php echo include 'footer.php'; ?>
