@@ -101,6 +101,17 @@ include 'function.php';
 
       if ($nom_fournisseur != "") {
 
+       $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre AND fournisseurs.id_membre = :id_membre');
+       $count->bindValue('nom_fournisseur', $nom_fournisseur, PDO::PARAM_STR);
+       $count->bindValue('id_membre', $id_membre, PDO::PARAM_INT);
+       $count->execute();
+
+       if ($count->fetchColumn()) {
+        /*Si le nom du fournisseur entré est déjà utilisé*/
+        setFlash('Attention le nom du fournisseur est déjà utilisé. Si vous avez plusieurs fournisseurs avec le même nom, ajouter un numéro par exemple.', 'danger');
+        $erreur_nom_fournisseur = '<p class="text-red"><i class="fa fa-fw fa-warning"></i> Erreur, le nom du fournisseur est déjà utilisé.</p>';
+      } else {
+
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 
           if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0){
@@ -199,10 +210,12 @@ include 'function.php';
         }else{
           setFlash('Attention format email invalide ou vide', 'danger');
         }
-      }else{
-        setFlash('Attention le nom du fournisseur est vide', 'danger');
+
       }
+    }else{
+      setFlash('Attention le nom du fournisseur est vide', 'danger');
     }
+  }
 
 /*
     FIN MODIFICATION DU FOURNISSEUR

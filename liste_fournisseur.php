@@ -18,7 +18,7 @@ if(isset($_GET['desactiver'])){
     'f_active'   => $f_active,
     'get'        => $id_fournisseur
   ));
-  setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été désactiver. Cliquez sur <i class="fa fa-check"></i> pour le réactiver.', 'success');
+  setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été désactiver.', 'success');
   header('Location:liste_fournisseur.php');
   die();
 }
@@ -44,7 +44,7 @@ if(isset($_GET['active'])){
     'f_active'   => $f_active,
     'get'        => $id_fournisseur
   ));
-  setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été activé.  Cliquez sur <i class="fa fa-ban"></i> pour le désactiver.', 'success');
+  setFlash('Le fournisseur ' . $nom_fournisseur .' a bien été activé.', 'success');
   header('Location:liste_fournisseur.php');
   die();
 }
@@ -70,6 +70,19 @@ if (isset($_POST['modif'])) {
 
 
   if ($nom_fournisseur != "") {
+
+
+ $count = $bdd->prepare('SELECT COUNT(*) FROM fournisseurs,membres WHERE f_nom = :nom_fournisseur AND fournisseurs.id_membre = membres.id_membre AND fournisseurs.id_membre = :id_membre');
+      $count->bindValue('nom_fournisseur', $nom_fournisseur, PDO::PARAM_STR);
+      $count->bindValue('id_membre', $id_membre, PDO::PARAM_INT);
+      $count->execute();
+
+      if ($count->fetchColumn()) {
+        /*Si le nom du fournisseur entré est déjà utilisé*/
+        setFlash('Attention le nom du fournisseur est déjà utilisé. Si vous avez plusieurs fournisseurs avec le même nom, ajouter un numéro par exemple.', 'danger');
+        $erreur_nom_fournisseur = '<p class="text-red"><i class="fa fa-fw fa-warning"></i> Erreur, le nom du fournisseur est déjà utilisé.</p>';
+      } else {
+
 
     if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 
@@ -107,9 +120,14 @@ if (isset($_POST['modif'])) {
       }else{
         setFlash('Attention le format de l\'email est invalide ou vide', 'danger');
       }
+
+    }
     }else{
       setFlash('Attention le nom du fournisseur est vide', 'danger');
     }
+
+
+
 
   }
 
@@ -351,16 +369,16 @@ if (isset($_POST['modif'])) {
                         }?>
                       </td>
                       <td>
-                        <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" data-original-title="Voir" "><i class="fa fa-search"></i></a>
-                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>"><i class="fa fa-edit"></i></button>
+                        <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat">Voir</a>
+                        <button type="button" class="btn btn-warning btn-flat" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>">Modifier</button>
 
                         <?php if ($donnees['f_active'] == 1) {
                           ?>
-                          <a href="?desactiver=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Désactiver le fournisseur" "><i class="fa fa-ban"></i></a>
+                          <a href="?desactiver=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat">Désactiver</i></a>
                           <?php
                         }else{
                           ?>
-                          <a href="?active=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour activer');" type="button" class="btn btn-success btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Activer le fournisseur" "><i class="fa fa-check"></i></a>
+                          <a href="?active=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour activer');" type="button" class="btn btn-success btn-flat">Activer</i></a>
                           <?php
                         }
 

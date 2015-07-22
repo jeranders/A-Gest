@@ -228,13 +228,38 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i> A propos</a></li>
                   </ul>
                 </li> 
-                <li><a href="ajout_fournisseur.php"><i class="fa fa-file-o"></i> <span>Ajout d'un fournisseur</span></a></li>
-                <li><a href="liste_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Liste des fournisseurs</span></a></li>
-                <li><a href="ajout_categorie.php"><i class="fa fa-file-o"></i> <span>Ajout d'une catégorie</span></a></li>
-                <li><a href="liste_categorie.php"><i class="fa fa-list-alt"></i> <span>Liste des catégories</span></a></li>
-                <li><a href="ajout_produit.php"><i class="fa fa-file-o"></i> <span>Ajout d'un produit</span></a></li>
-                <li><a href="liste_produit.php"><i class="fa fa-list-alt"></i> <span>Liste des produits</span></a></li>
-              </ul>
-            </section>
-            <!-- /.sidebar -->
-          </aside>
+
+                <li class="treeview">
+                  <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Fournisseurs</span> <i class="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul class="treeview-menu">
+                   <li><a href="ajout_fournisseur.php"><i class="fa fa-file-o"></i> <span>Ajout d'un fournisseur</span></a></li>
+                   <li><a href="liste_fournisseur.php"><i class="fa fa-list-alt"></i> <span>Liste des fournisseurs</span></a></li>
+                 </ul>
+               </li> 
+
+               <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-dashboard"></i> <span>Catégories</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                 <li><a href="ajout_categorie.php"><i class="fa fa-file-o"></i> <span>Ajout d'une catégorie</span></a></li>
+                 <li><a href="liste_categorie.php"><i class="fa fa-list-alt"></i> <span>Liste des catégories</span></a></li>
+               </ul>
+             </li> 
+
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Produits</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+               <li><a href="ajout_produit.php"><i class="fa fa-file-o"></i> <span>Ajout d'un produit</span></a></li>
+               <li><a href="liste_produit.php"><i class="fa fa-list-alt"></i> <span>Liste des produits</span></a></li>
+             </ul>
+           </li> 
+
+         </ul>
+       </section>
+       <!-- /.sidebar -->
+     </aside>
