@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 07 Juillet 2015 à 10:31
+-- Généré le :  Mer 22 Juillet 2015 à 20:28
 -- Version du serveur :  5.6.21
 -- Version de PHP :  5.6.3
 
@@ -23,6 +23,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+`id_categorie` int(11) NOT NULL,
+  `c_nom` varchar(60) NOT NULL,
+  `c_description` text NOT NULL,
+  `c_logo` varchar(255) NOT NULL,
+  `c_ref` varchar(40) NOT NULL,
+  `c_date_ajout` datetime NOT NULL,
+  `c_active` int(11) NOT NULL,
+  `id_membre` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `categories`
+--
+
+INSERT INTO `categories` (`id_categorie`, `c_nom`, `c_description`, `c_logo`, `c_ref`, `c_date_ajout`, `c_active`, `id_membre`) VALUES
+(1, 'Cabochon', '', '', '', '2015-07-21 16:22:54', 1, 2),
+(2, 'Cabochon', '', '', 'IE3332US', '2015-07-21 23:10:04', 1, 1),
+(3, 'Bagues', '', '', '', '2015-07-22 12:32:56', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `config_gen`
 --
 
@@ -31,15 +57,16 @@ CREATE TABLE IF NOT EXISTS `config_gen` (
   `id_membre` int(11) NOT NULL,
   `cg_compte` int(11) NOT NULL,
   `cg_fournisseur` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `config_gen`
 --
 
 INSERT INTO `config_gen` (`id_config_gen`, `id_membre`, `cg_compte`, `cg_fournisseur`) VALUES
-(1, 1, 158, 0),
-(2, 2, 87488, 0);
+(1, 1, 0, 0),
+(2, 2, 0, 0),
+(3, 4, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -50,6 +77,7 @@ INSERT INTO `config_gen` (`id_config_gen`, `id_membre`, `cg_compte`, `cg_fournis
 CREATE TABLE IF NOT EXISTS `fournisseurs` (
 `id_fournisseur` int(11) NOT NULL,
   `f_nom` varchar(255) NOT NULL,
+  `f_ref` varchar(40) NOT NULL,
   `f_rue` varchar(255) NOT NULL,
   `f_code_postal` int(11) NOT NULL,
   `f_ville` varchar(80) NOT NULL,
@@ -60,11 +88,21 @@ CREATE TABLE IF NOT EXISTS `fournisseurs` (
   `f_site` varchar(255) NOT NULL,
   `f_commentaire` text NOT NULL,
   `f_logo` varchar(255) NOT NULL DEFAULT 'dist/img/fournisseurs/logo-fournisseur.jpg',
-  `f_active` int(11) NOT NULL,
+  `f_active` int(11) NOT NULL DEFAULT '1',
   `id_membre` int(11) NOT NULL,
   `f_date_ajout` datetime NOT NULL,
   `f_livraison` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `fournisseurs`
+--
+
+INSERT INTO `fournisseurs` (`id_fournisseur`, `f_nom`, `f_ref`, `f_rue`, `f_code_postal`, `f_ville`, `f_pays`, `f_tel`, `f_fax`, `f_email`, `f_site`, `f_commentaire`, `f_logo`, `f_active`, `id_membre`, `f_date_ajout`, `f_livraison`) VALUES
+(1, 'Jeff Sun', '118994', '', 0, '', 44, '', '', 'null@null.fr', 'http://fr.aliexpress.com/store/118994', '', 'dist/img/fournisseurs/logo-fournisseur.jpg', 1, 2, '2015-07-21 16:17:10', 90),
+(2, 'Alex', 'IXLQV8VV', '', 0, '', 44, '', '', 'null@null.fr', '', '', 'dist/img/fournisseurs/logo-fournisseur.jpg', 1, 2, '2015-07-21 16:18:50', 0),
+(3, 'Bernard', 'IB4AM95R', '', 0, '', 75, '', '', 'sdf@sdf.fr', '', '', 'dist/img/fournisseurs/logo-fournisseur.jpg', 1, 1, '2015-07-22 11:50:00', 0),
+(4, 'Jean', '', '', 0, '', 75, '', '', 'sdf@sdf.df', '', '', 'dist/img/fournisseurs/logo-fournisseur.jpg', 1, 1, '2015-07-22 12:24:52', 0);
 
 -- --------------------------------------------------------
 
@@ -80,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `membres` (
   `password` varchar(40) NOT NULL,
   `m_email` varchar(40) NOT NULL,
   `m_active` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `membres`
@@ -88,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `membres` (
 
 INSERT INTO `membres` (`id_membre`, `m_nom`, `m_prenom`, `m_pseudo`, `password`, `m_email`, `m_active`) VALUES
 (1, 'Brechoire', 'Jérôme', 'jeranders', '723156650c5778d0e4df4b2fbfeefa65359302e5', 'brechoire.j@gmail.com', 1),
-(2, 'Moltes', 'Jean', 'Moltes', '723156650c5778d0e4df4b2fbfeefa65359302e5', 'moltes@gmail.com', 1);
+(2, 'Moltes', 'Jean', 'Moltes', '723156650c5778d0e4df4b2fbfeefa65359302e5', 'moltes@gmail.com', 1),
+(4, 'Brechoire', 'Gérard', 'Gerard', '76c1da08be458687d0066397d08e4f7ea9894377', 'gerale42@hotmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -357,6 +396,12 @@ INSERT INTO `pays` (`id`, `code`, `alpha2`, `alpha3`, `nom_en_gb`, `nom_fr_fr`) 
 --
 
 --
+-- Index pour la table `categories`
+--
+ALTER TABLE `categories`
+ ADD PRIMARY KEY (`id_categorie`);
+
+--
 -- Index pour la table `config_gen`
 --
 ALTER TABLE `config_gen`
@@ -385,20 +430,25 @@ ALTER TABLE `pays`
 --
 
 --
+-- AUTO_INCREMENT pour la table `categories`
+--
+ALTER TABLE `categories`
+MODIFY `id_categorie` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT pour la table `config_gen`
 --
 ALTER TABLE `config_gen`
-MODIFY `id_config_gen` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id_config_gen` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `fournisseurs`
 --
 ALTER TABLE `fournisseurs`
-MODIFY `id_fournisseur` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_fournisseur` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `membres`
 --
 ALTER TABLE `membres`
-MODIFY `id_membre` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id_membre` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `pays`
 --
