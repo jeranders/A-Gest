@@ -254,7 +254,7 @@ include 'function.php';
     <br>
     
     <section class="content">  
-     <?php echo flash(); var_dump($_GET); ?>
+     <?php echo flash(); ?>
 
      <div class="row">
 

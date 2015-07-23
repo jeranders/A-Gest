@@ -74,9 +74,9 @@ include 'function.php';
 
 
 
-            /*  setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
+              setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
               header('Location:categorie.php?p='. $id_categorie);
-              die();*/
+              die();
 
             }else{
               setFlash('Mauvais format de fichier. Le fichier doit être en .jpg, .jpeg, .png, .gif', 'danger');      
@@ -98,9 +98,9 @@ include 'function.php';
           'get'             => $id_categorie
           ));
 
-       /*  setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
+         setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
          header('Location:categorie.php?p='. $id_categorie);
-         die();*/
+         die();
        }
 
      }else{
@@ -119,14 +119,10 @@ include 'function.php';
 */
 
     if(isset($_GET['desactiver'])){
-
       checkCsrf();
-
       $c_active = (int)0;
       $id_categorie = (int)$_GET['p'];
-
       $req = $bdd->prepare('UPDATE categories SET c_active = :c_active WHERE id_categorie = :get');
-
       $req->execute(array(
         'c_active'   => $c_active,
         'get'        => $id_categorie
@@ -145,14 +141,10 @@ include 'function.php';
 */
 
     if(isset($_GET['active'])){
-
       checkCsrf();
-
       $c_active = (int)1;
       $id_categorie = (int)$_GET['p'];
-
       $req = $bdd->prepare('UPDATE categories SET c_active = :c_active WHERE id_categorie = :get');
-
       $req->execute(array(
         'c_active'   => $c_active,
         'get'        => $id_categorie
@@ -167,22 +159,22 @@ include 'function.php';
 */
 
 
-    ?>
+   ?>
 
-    <?php include 'header_top.php'; ?>
-    <title><?php echo html_entity_decode($donnees['c_nom']); ?> | Easy Gestion</title>
-    <meta content='' name='viewport'>
-    <?php include 'header_bottom.php'; ?>
+   <?php include 'header_top.php'; ?>
+   <title><?php echo html_entity_decode($donnees['c_nom']); ?> | Easy Gestion</title>
+   <meta content='' name='viewport'>
+   <?php include 'header_bottom.php'; ?>
 
-    <script type="text/javascript">
+   <script type="text/javascript">
 
-    function generatePassword() {
-      var length = 8,
-      charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-      retVal = "";
-      for (var i = 0, n = charset.length; i < length; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
-      }
+   function generatePassword() {
+    var length = 8,
+    charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+      retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
     //return retVal;
 
     document.getElementById("NUM_DECHARGE").value = retVal;
@@ -207,7 +199,7 @@ include 'function.php';
     <br>
     
     <section class="content">  
-     <?php echo flash(); include 'debug.php'; var_dump($_FILES['logo']);?>
+     <?php echo flash(); ?>
 
      <div class="row">
 
@@ -217,12 +209,10 @@ include 'function.php';
           <div class="box-header mb-10">
             <h3 class="box-title"><?php echo html_entity_decode($donnees['c_nom']); ?></h3>
           </div><!-- /.box-header -->
-          <img src="<?php echo $donnees['c_logo']; ?>" class="img-circle" alt="User Image" width="128px" height="128px"/>
+          <img src="<?php echo $donnees['c_logo']; ?>" class="img-circle" alt="User Image" width="228px" height="228px"/>
           <div class="m-10">
            <br>
            <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Ajouter le <?php echo $donnees['c_date_ajout']; ?>" "><i class="fa fa-calendar"></i></button>
-           <button type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Taux de retard : 5%" "><i class="fa fa-star"></i></button>
-           <button type="button" class="btn bg-purple btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Jours de livraison : <?php echo $donnees['f_livraison']; ?>" "><i class="fa fa-truck"></i></button>
            <?php if ($donnees['c_active'] == 1) {
             ?> 
             <a href="?p=<?php echo $donnees['id_categorie']; ?>&desactiver=<?php echo $donnees['id_categorie']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Désactiver La catégorie" "><i class="fa fa-ban"></i></a>
@@ -256,18 +246,13 @@ include 'function.php';
       </div><!-- /.box -->
     </div><!--/.col -->
 
-
-
-
-
     <div class="col-xs-10">
       <!-- Custom Tabs (Pulled to the right) -->
       <div class="nav-tabs-custom" id="myTabs">
         <ul class="nav nav-tabs pull-right">
           <li class=""><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">description & statistiques</a></li>
           <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">Modifier</a></li>
-          <li class=""><a href="#tab_3-2" data-toggle="tab" aria-expanded="true">Liste des produits</a></li>
-          <li class="active"><a href="#tab_4-2" data-toggle="tab" aria-expanded="true">Commande en cours</a></li>
+          <li class="active"><a href="#tab_3-2" data-toggle="tab" aria-expanded="true">Liste des produits</a></li>          <li 
 
           <li class="pull-left header"><i class="fa fa-th"></i> Menu</li>
         </ul>
@@ -337,7 +322,7 @@ include 'function.php';
             </form>
 
           </div><!-- /.tab-pane -->
-          <div class="tab-pane" id="tab_3-2">
+          <div class="tab-pane active" id="tab_3-2">
             <table  class="table table-bordered table-striped example2">
               <thead>
                 <tr>
@@ -353,22 +338,7 @@ include 'function.php';
               </tbody>
             </table>
           </div><!-- /.tab-pane -->
-          <div class="tab-pane active" id="tab_4-2">
-            <table  class="table table-bordered table-striped example2">
-              <thead>
-                <tr>
-                  <th>nCom</th>
-                  <th>Nom</th>
-                  <th>Fax</th>
-                  <th>Email</th>
-                  <th>Site</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div><!-- /.tab-pane -->
+
         </div><!-- /.tab-content -->
       </div><!-- nav-tabs-custom -->
     </div>
