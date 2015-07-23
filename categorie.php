@@ -159,6 +159,27 @@ include 'function.php';
 */
 
 
+   /*
+    SUPP categorie
+*/
+
+    if(isset($_GET['del'])){
+      checkCsrf();
+      $id_categorie = (int)$_GET['p'];
+      $req = $bdd->prepare('DELETE FROM categories WHERE id_categorie = :get');
+      $req->execute(array(
+        'get'        => $id_categorie
+        ));
+      setFlash('La catégorie ' . $nom_categorie .' a bien été Supprimé.', 'success');
+      header('Location:liste_categorie.php');
+      die();
+    }
+
+/*
+   FIN SUPP categorie
+*/
+
+
    ?>
 
    <?php include 'header_top.php'; ?>
@@ -215,15 +236,16 @@ include 'function.php';
            <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Ajouter le <?php echo $donnees['c_date_ajout']; ?>" "><i class="fa fa-calendar"></i></button>
            <?php if ($donnees['c_active'] == 1) {
             ?> 
-            <a href="?p=<?php echo $donnees['id_categorie']; ?>&desactiver=<?php echo $donnees['id_categorie']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Désactiver La catégorie" "><i class="fa fa-ban"></i></a>
+            <a href="?p=<?php echo $donnees['id_categorie']; ?>&desactiver=<?php echo $donnees['id_categorie']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-warning btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Désactiver la catégorie" "><i class="fa fa-ban"></i></a>
             <?php
           }else{
             ?> 
-            <a href="?p=<?php echo $donnees['id_categorie']; ?>&active=<?php echo $donnees['id_categorie']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour activer');" type="button" class="btn btn-success btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Activer La catégorie" "><i class="fa fa-check"></i></a>
+            <a href="?p=<?php echo $donnees['id_categorie']; ?>&active=<?php echo $donnees['id_categorie']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour activer');" type="button" class="btn btn-success btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Activer la catégorie" "><i class="fa fa-check"></i></a>
             <?php
           } 
-
           ?>
+            <a href="?p=<?php echo $donnees['id_categorie']; ?>&del=<?php echo $donnees['id_categorie']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Attention la suppression est irréversible');" type="button" class="btn btn-danger btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Supprimer la catégorie" "><i class="fa fa-trash"></i></a>
+
         </div>
 
         <div>
@@ -250,7 +272,7 @@ include 'function.php';
       <!-- Custom Tabs (Pulled to the right) -->
       <div class="nav-tabs-custom" id="myTabs">
         <ul class="nav nav-tabs pull-right">
-          <li class=""><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">description & statistiques</a></li>
+          <li class=""><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">Déscription & statistiques</a></li>
           <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">Modifier</a></li>
           <li class="active"><a href="#tab_3-2" data-toggle="tab" aria-expanded="true">Liste des produits</a></li>          <li 
 
@@ -258,7 +280,7 @@ include 'function.php';
         </ul>
         <div class="tab-content">
           <div class="tab-pane" id="tab_1-1">
-            <b>description</b>
+            <b>Déscription</b>
             <p>
               <?php if ($donnees['c_description'] == "") {
                 echo "Aucun description";
@@ -267,9 +289,9 @@ include 'function.php';
               } ?>
             </p>
             <b>Statistiques</b>
-            <p>Il n'y a x commandes</p> 
-            <p>Il y a un taux de retard de 5% (3 retard sur 58 commandes)</p>
-            <p>La plus grosse commande et le numéro <a href="#">544s5d4f6sd</a> avec 1258 &euro;</p>
+            <p>Il y a X produit dans la cétégorie</p> 
+            <p>Le produit le plus cher de la catégorie est <a href="#">XXXXXX</a> avec 1258 &euro;</p>
+            <p>Le produit avec le plus gros stock est <a href="#">544s5d4f6sd</a> avec 125 unités;</p>
           </div><!-- /.tab-pane -->
           <div class="tab-pane" id="tab_2-2">
 

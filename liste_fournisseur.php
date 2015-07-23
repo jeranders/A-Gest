@@ -370,11 +370,11 @@ if (isset($_POST['modif'])) {
                       </td>
                       <td>
                         <a href="fournisseur.php?p=<?php echo $donnees['id_fournisseur']; ?>" type="button" class="btn btn-info btn-flat">Voir</a>
-                        <button type="button" class="btn btn-warning btn-flat" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>">Modifier</button>
+                        <button type="button" class="btn bg-purple btn-flat" data-toggle="modal" data-target="#<?php echo $donnees['id_fournisseur']; ?>">Modifier</button>
 
                         <?php if ($donnees['f_active'] == 1) {
                           ?>
-                          <a href="?desactiver=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-danger btn-flat">Désactiver</i></a>
+                          <a href="?desactiver=<?php echo $donnees['id_fournisseur']; ?>&<?php echo csrf(); ?>" onclick="return confirm('Valider pour désactiver');" type="button" class="btn btn-warning btn-flat">Désactiver</i></a>
                           <?php
                         }else{
                           ?>
