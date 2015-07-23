@@ -22,7 +22,99 @@ include 'function.php';
     FIN INFORMATION DU categorie
 */
 
+
 /*
+    MODIFICATION DU categorie
+*/
+
+    if (isset($_POST['modif'])) {
+
+      /* VARIABLE MODIF categorie DEBUT ******************************/
+      $nom_categorie = htmlentities($_POST['nom_categorie']); 
+      $ref = htmlentities($_POST['ref']);       
+      $logo = $_FILES['logo'];
+      $description = htmlentities($_POST['description']);     
+      $id_membre = (int)$_SESSION['id_membre'];
+      $id_categorie = (int)$_GET['p'];
+
+      /* VARIABLE MODIF categorie FIN ********************************/
+
+      if ($nom_categorie != "") {
+
+        if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0){
+
+        // Testons si le fichier n'est pas trop gros
+          if ($_FILES['logo']['size'] <= 10000000){
+                // Testons si l'extension est autorisée
+            $infosfichier = pathinfo($_FILES['logo']['name']);
+            $extension_upload = $infosfichier['extension'];
+            $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
+            if (in_array($extension_upload, $extensions_autorisees)) {
+
+              $name_file = 'dist/img/categories/' . str_shuffle('Jesuilelogodescategories') . rand(5,999) . cleanCaracteresSpeciaux($_FILES['logo']['name']); 
+              $name_logo = str_replace(' ', '', $name_file);
+              move_uploaded_file($_FILES['logo']['tmp_name'], 'dist/img/categories/' . basename($name_logo));
+
+              $req = $bdd->prepare('UPDATE categories SET 
+               c_nom          = :nom_categorie,
+               c_ref          = :ref,
+               c_description  = :description,
+               c_logo         = :logo,
+               id_membre      = :id_membre 
+               WHERE id_categorie = :get');
+
+              $req->execute(array(
+                'nom_categorie'   => $nom_categorie,
+                'ref'             => $ref,                  
+                'description'     => $description,
+                'logo'            => $name_logo,                  
+                'id_membre'       => $id_membre,
+                'get'             => $id_categorie
+                ));
+
+
+
+            /*  setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
+              header('Location:categorie.php?p='. $id_categorie);
+              die();*/
+
+            }else{
+              setFlash('Mauvais format de fichier. Le fichier doit être en .jpg, .jpeg, .png, .gif', 'danger');      
+            }
+          }
+        }else{
+         $req = $bdd->prepare('UPDATE categories SET 
+           c_nom          = :nom_categorie,
+           c_ref          = :ref,
+           c_description  = :description,                
+           id_membre      = :id_membre 
+           WHERE id_categorie = :get');
+
+         $req->execute(array(
+          'nom_categorie' => $nom_categorie,
+          'ref'             => $ref,                  
+          'description'     => $description,                               
+          'id_membre'       => $id_membre,
+          'get'             => $id_categorie
+          ));
+
+       /*  setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
+         header('Location:categorie.php?p='. $id_categorie);
+         die();*/
+       }
+
+     }else{
+      setFlash('Attention le nom du categorie est vide', 'danger');
+    }
+  }
+
+/*
+    FIN MODIFICATION DU categorie
+*/
+
+
+
+    /*
     DESACTIVATION DU categorie
 */
 
@@ -74,107 +166,6 @@ include 'function.php';
    FIN ACTIVATION DU categorie
 */
 
-/*
-    MODIFICATION DU categorie
-*/
-
-    if (isset($_POST['modif'])) {
-
-      /* VARIABLE MODIF categorie DEBUT ******************************/
-      $nom_categorie = htmlentities($_POST['nom_categorie']); 
-      $ref = htmlentities($_POST['ref']);       
-      $logo = $_FILES['logo'];
-      $description = htmlentities($_POST['description']);     
-      $id_membre = (int)$_SESSION['id_membre'];
-      $id_categorie = (int)$_GET['p'];
-
-      /* VARIABLE MODIF categorie FIN ********************************/
-
-      if ($nom_categorie != "") {
-
-       $count = $bdd->prepare('SELECT COUNT(*) FROM categories, membres WHERE c_nom = :nom_categorie AND categories.id_membre = membres.id_membre AND categories.id_membre = :id_membre');
-       $count->bindValue('nom_categorie', $nom_categorie, PDO::PARAM_STR);
-       $count->bindValue('id_membre', $id_membre, PDO::PARAM_INT);
-       $count->execute();
-
-       if ($count->fetchColumn()) {
-        /*Si le nom du fournisseur entré est déjà utilisé*/
-        setFlash('Attention le nom de la catégorie est déjà utilisé. Si vous avez plusieurs catégorie avec le même nom, ajouter un numéro par exemple.', 'danger');
-      } else {
-
-
-
-
-        if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0){
-
-        // Testons si le fichier n'est pas trop gros
-          if ($_FILES['logo']['size'] <= 1000000){
-                // Testons si l'extension est autorisée
-            $infosfichier = pathinfo($_FILES['logo']['name']);
-            $extension_upload = $infosfichier['extension'];
-            $extensions_autorisees = array('jpg', 'jpeg', 'gif', 'png', 'JPG', 'JPEG', 'GIF', 'PNG');
-            if (in_array($extension_upload, $extensions_autorisees)) {
-
-              $name_file = 'dist/img/categories/' . str_shuffle('Jesuilelogodescategories') . rand(5,999) . cleanCaracteresSpeciaux($_FILES['logo']['name']); 
-              $name_logo = str_replace(' ', '', $name_file);
-              move_uploaded_file($_FILES['logo']['tmp_name'], 'dist/img/categories/' . basename($name_logo));
-
-              $req = $bdd->prepare('UPDATE categories SET 
-               c_nom          = :nom_categorie,
-               c_ref          = :ref,
-               c_description  = :description,
-               c_logo         = :logo,
-               id_membre      = :id_membre 
-               WHERE id_categorie = :get');
-
-              $req->execute(array(
-                'nom_categorie' => $nom_categorie,
-                'ref'             => $ref,                  
-                'description'     => $description,
-                'logo'            => $name_logo,                  
-                'id_membre'       => $id_membre,
-                'get'             => $id_categorie
-                ));
-
-              setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
-              header('Location:categorie.php?p='. $id_categorie);
-              die();
-
-            }else{
-              setFlash('Mauvais format de fichier. Le fichier doit être en .jpg, .jpeg, .png, .gif', 'danger');      
-            }
-          }
-        }else{
-         $req = $bdd->prepare('UPDATE categories SET 
-           c_nom          = :nom_categorie,
-           c_ref          = :ref,
-           c_description  = :description,                
-           id_membre      = :id_membre 
-           WHERE id_categorie = :get');
-
-         $req->execute(array(
-          'nom_categorie' => $nom_categorie,
-          'ref'             => $ref,                  
-          'description'     => $description,                               
-          'id_membre'       => $id_membre,
-          'get'             => $id_categorie
-          ));
-
-         setFlash('La catégorie ' . $nom_categorie .' a bien été modifié', 'success');
-         header('Location:categorie.php?p='. $id_categorie);
-         die();
-       }
-
-     }
-
-   }else{
-    setFlash('Attention le nom du categorie est vide', 'danger');
-  }
-}
-
-/*
-    FIN MODIFICATION DU categorie
-*/
 
     ?>
 
@@ -216,7 +207,7 @@ include 'function.php';
     <br>
     
     <section class="content">  
-     <?php echo flash(); ?>
+     <?php echo flash(); include 'debug.php'; var_dump($_FILES['logo']);?>
 
      <div class="row">
 
@@ -226,7 +217,7 @@ include 'function.php';
           <div class="box-header mb-10">
             <h3 class="box-title"><?php echo html_entity_decode($donnees['c_nom']); ?></h3>
           </div><!-- /.box-header -->
-          <img src="<?php echo $donnees['f_logo']; ?>" class="img-circle" alt="User Image" width="128px" height="128px"/>
+          <img src="<?php echo $donnees['c_logo']; ?>" class="img-circle" alt="User Image" width="128px" height="128px"/>
           <div class="m-10">
            <br>
            <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Ajouter le <?php echo $donnees['c_date_ajout']; ?>" "><i class="fa fa-calendar"></i></button>
@@ -258,7 +249,7 @@ include 'function.php';
                   echo 'C-' . html_entity_decode($donnees['c_ref']);
                 }?>
               </dd>
-            
+
             </dl>
           </div>
         </div>
@@ -284,10 +275,10 @@ include 'function.php';
           <div class="tab-pane" id="tab_1-1">
             <b>description</b>
             <p>
-              <?php if ($donnees['f_description'] == "") {
+              <?php if ($donnees['c_description'] == "") {
                 echo "Aucun description";
               }else{
-                echo nl2br($donnees['f_description']);
+                echo nl2br($donnees['c_description']);
               } ?>
             </p>
             <b>Statistiques</b>
@@ -300,50 +291,50 @@ include 'function.php';
 
             <form role="form" action="" method="post" enctype="multipart/form-data">
 
-            <div class="box-body">
-              <div class="form-group">
-                <label for="nom_categorie">Nom de la catégorie</label>
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="nom_categorie">Nom de la catégorie</label>
 
-                <?php if (isset($_POST['nom_categorie'])) {
-                  ?>
-                  <input type="text" class="form-control" id="nom_categorie" placeholder="Entrer un nom" name="nom_categorie" value="<?php echo $donnees['c_nom']; ?>">
-                  <?php
-                }else {
-                  ?>
-                  <input type="text" class="form-control" placeholder="Entrer un nom" name="nom_categorie" value="<?php echo $donnees['c_nom']; ?>" required>
-                  <?php
-                } ?>
-              </div>            
+                  <?php if (isset($_POST['nom_categorie'])) {
+                    ?>
+                    <input type="text" class="form-control" id="nom_categorie" placeholder="Entrer un nom" name="nom_categorie" value="<?php echo $donnees['c_nom']; ?>">
+                    <?php
+                  }else {
+                    ?>
+                    <input type="text" class="form-control" placeholder="Entrer un nom" name="nom_categorie" value="<?php echo $donnees['c_nom']; ?>" required>
+                    <?php
+                  } ?>
+                </div>            
 
-              <!-- REF -->
-              <div class="form-group">
-                <label for="reference">Référence</label>
-                <div class="input-group margin">
-                  <div class="input-group-btn">
-                    <button type="button" class="btn btn-danger" value="Ajouter" onclick="generatePassword()">Aléatoire</button>
-                  </div><!-- /btn-group -->
-                  <input type="text" class="form-control" id="NUM_DECHARGE" name="ref" value="<?php if (isset($_POST['ref'])) { echo $_POST['ref']; } ?>">
+                <!-- REF -->
+                <div class="form-group">
+                  <label for="reference">Référence</label>
+                  <div class="input-group margin">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-danger" value="Ajouter" onclick="generatePassword()">Aléatoire</button>
+                    </div><!-- /btn-group -->
+                    <input type="text" class="form-control" id="NUM_DECHARGE" name="ref" value="<?php if (isset($_POST['ref'])) { echo $_POST['ref']; } ?>">
+                  </div>
                 </div>
+
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" rows="3" placeholder="Entrer ..." name="description" value="<?php if (isset($_POST['description'])) { echo $_POST['description']; } ?>"></textarea>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="file">Ajouter un logo</label>
+                  <input type="file" id="file" name="logo" class="btn-default">
+                  <p class="help-block">La taille du fichier ne dois pas dépasser 500ko</p>
+                </div> 
+
+              </div><!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" name="modif" class="btn btn-primary">Modifier</button>
               </div>
-
-              <div class="form-group">
-                <label>Description</label>
-                <textarea class="form-control" rows="3" placeholder="Entrer ..." name="description" value="<?php if (isset($_POST['description'])) { echo $_POST['description']; } ?>"></textarea>
-              </div>
-
-
-              <div class="form-group">
-                <label for="file">Ajouter un logo</label>
-                <input type="file" id="file" name="logo" class="btn-default">
-                <p class="help-block">La taille du fichier ne dois pas dépasser 500ko</p>
-              </div> 
-
-            </div><!-- /.box-body -->
-
-            <div class="box-footer">
-              <button type="submit" name="send" class="btn btn-primary">Ajouter</button>
-            </div>
-          </form>
+            </form>
 
           </div><!-- /.tab-pane -->
           <div class="tab-pane" id="tab_3-2">

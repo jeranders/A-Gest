@@ -6,12 +6,13 @@ if (isset($_POST['modif'])) {
   /* VARIABLE MODIF FOURNISSEUR DEBUT ******************************/
   $nom_categorie  = htmlentities($_POST['nom_categorie']);
   $description    = htmlentities($_POST['description']);
-  $ref            = htmlentities($_POST['ref']); 
   $active         = (int)1;
   $id_membre      = (int)$_SESSION['id_membre'];
+  $id_categorie   = (int)$_POST['id_categorie'];
 
   /* VARIABLE MODIF FOURNISSEUR FIN ********************************/
   if ($nom_categorie != "") {
+
    $count = $bdd->prepare('SELECT COUNT(*) FROM categories, membres WHERE c_nom = :nom_categorie AND categories.id_membre = membres.id_membre AND categories.id_membre = :id_membre');
    $count->bindValue('nom_categorie', $nom_categorie, PDO::PARAM_STR);
    $count->bindValue('id_membre', $id_membre, PDO::PARAM_INT);
@@ -22,18 +23,17 @@ if (isset($_POST['modif'])) {
     setFlash('Attention le nom de la catégorie est déjà utilisé. Si vous avez plusieurs catégorie avec le même nom, ajouter un numéro par exemple.', 'danger');
   } else {
 
-   $req = $bdd->prepare('UPDATE categories SET c_nom = :nom_categorie, c_description = :description WHERE id_categorie = :id_categorie');
+   $req = $bdd->prepare('UPDATE categories SET c_nom = :nom_categorie, c_description = :description, id_membre = :id_membre WHERE id_categorie = :id_categorie');
    $req->execute(array(
     'nom_categorie' => $nom_categorie,
-
     'description'   => $description,
     'id_membre'     => $id_membre,
     'id_categorie'  => $id_categorie
     ));
 
-   setFlash('La categorie' . $nom_categorie .' a bien été modifié', 'success');
+  /* setFlash('La categorie ' . $nom_categorie .' a bien été modifié', 'success');
    header('Location:liste_categorie.php');
-   die();
+   die();*/
 
  }
 }else{
