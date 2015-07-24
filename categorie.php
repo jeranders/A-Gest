@@ -230,7 +230,7 @@ include 'function.php';
           <div class="box-header mb-10">
             <h3 class="box-title"><?php echo html_entity_decode($donnees['c_nom']); ?></h3>
           </div><!-- /.box-header -->
-          <img src="<?php echo $donnees['c_logo']; ?>" class="img-circle" alt="User Image" width="228px" height="228px"/>
+          <img src="<?php echo $donnees['c_logo']; ?>" class="img-circle" alt="User Image" width="128px" height="128px"/>
           <div class="m-10">
            <br>
            <button type="button" class="btn btn-info btn-flat data-placement="top" data-toggle="tooltip" href="#" data-original-title="Ajouter le <?php echo $donnees['c_date_ajout']; ?>" "><i class="fa fa-calendar"></i></button>
